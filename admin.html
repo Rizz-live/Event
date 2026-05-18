@@ -27,486 +27,117 @@
     --success-bg: #EAF7ED;
     --error-bg: #FDEAEA;
   }
-
   * { margin: 0; padding: 0; box-sizing: border-box; }
+  body { font-family: 'DM Sans', sans-serif; background: #F0EDE4; color: var(--dark); min-height: 100vh; }
 
-  body {
-    font-family: 'DM Sans', sans-serif;
-    background: #F0EDE4;
-    color: var(--dark);
-    min-height: 100vh;
-  }
-
-  /* ── SIDEBAR ── */
   .layout { display: flex; min-height: 100vh; }
-
   .sidebar {
-    width: 240px;
-    background: var(--dark);
-    padding: 0;
-    position: fixed;
-    top: 0; left: 0; bottom: 0;
-    display: flex;
-    flex-direction: column;
-    z-index: 50;
+    width: 240px; background: var(--dark); padding: 0;
+    position: fixed; top: 0; left: 0; bottom: 0;
+    display: flex; flex-direction: column; z-index: 50;
     box-shadow: 4px 0 24px rgba(0,0,0,0.18);
   }
-
-  .sidebar-logo {
-    padding: 24px 20px 20px;
-    border-bottom: 1px solid rgba(255,255,255,0.08);
-    display: flex;
-    align-items: center;
-    gap: 10px;
-  }
-  .sidebar-logo-icon {
-    width: 36px;
-    height: 36px;
-    border-radius: 10px;
-    background: linear-gradient(135deg, var(--gold), var(--gold-light));
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    font-size: 18px;
-  }
-  .sidebar-logo-text {
-    font-family: 'Playfair Display', serif;
-    font-size: 15px;
-    font-weight: 700;
-    color: var(--gold-light);
-    line-height: 1.1;
-  }
+  .sidebar-logo { padding: 24px 20px 20px; border-bottom: 1px solid rgba(255,255,255,0.08); display: flex; align-items: center; gap: 10px; }
+  .sidebar-logo-icon { width: 36px; height: 36px; border-radius: 10px; background: linear-gradient(135deg, var(--gold), var(--gold-light)); display: flex; align-items: center; justify-content: center; font-size: 18px; }
+  .sidebar-logo-text { font-family: 'Playfair Display', serif; font-size: 15px; font-weight: 700; color: var(--gold-light); line-height: 1.1; }
   .sidebar-logo-text sub { display:block; font-family:'DM Sans',sans-serif; font-size:10px; color:var(--soft); font-weight:400; }
-
-  .nav-section-label {
-    font-size: 10px;
-    letter-spacing: 2px;
-    font-weight: 700;
-    text-transform: uppercase;
-    color: rgba(255,255,255,0.25);
-    padding: 18px 20px 8px;
-  }
-
-  .nav-item {
-    display: flex;
-    align-items: center;
-    gap: 10px;
-    padding: 11px 20px;
-    cursor: pointer;
-    color: rgba(255,255,255,0.55);
-    font-size: 13.5px;
-    font-weight: 500;
-    transition: all 0.18s;
-    border-left: 3px solid transparent;
-    margin: 1px 0;
-  }
+  .nav-section-label { font-size: 10px; letter-spacing: 2px; font-weight: 700; text-transform: uppercase; color: rgba(255,255,255,0.25); padding: 18px 20px 8px; }
+  .nav-item { display: flex; align-items: center; gap: 10px; padding: 11px 20px; cursor: pointer; color: rgba(255,255,255,0.55); font-size: 13.5px; font-weight: 500; transition: all 0.18s; border-left: 3px solid transparent; margin: 1px 0; }
   .nav-item:hover { background: rgba(255,255,255,0.06); color: rgba(255,255,255,0.85); }
-  .nav-item.active {
-    background: rgba(201,151,43,0.12);
-    color: var(--gold-light);
-    border-left-color: var(--gold);
-  }
+  .nav-item.active { background: rgba(201,151,43,0.12); color: var(--gold-light); border-left-color: var(--gold); }
   .nav-icon { font-size: 16px; width: 20px; text-align: center; }
+  .sidebar-footer { margin-top: auto; padding: 16px 20px; border-top: 1px solid rgba(255,255,255,0.06); font-size: 11px; color: rgba(255,255,255,0.25); text-align: center; }
 
-  .sidebar-footer {
-    margin-top: auto;
-    padding: 16px 20px;
-    border-top: 1px solid rgba(255,255,255,0.06);
-    font-size: 11px;
-    color: rgba(255,255,255,0.25);
-    text-align: center;
-  }
-
-  /* ── MAIN ── */
-  .main {
-    margin-left: 240px;
-    flex: 1;
-    display: flex;
-    flex-direction: column;
-    min-height: 100vh;
-  }
-
-  .topbar {
-    background: var(--white);
-    border-bottom: 1.5px solid var(--border);
-    padding: 16px 32px;
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-    position: sticky;
-    top: 0;
-    z-index: 40;
-    box-shadow: 0 2px 12px var(--shadow);
-  }
-  .topbar-title {
-    font-family: 'Playfair Display', serif;
-    font-size: 20px;
-    font-weight: 700;
-    color: var(--dark);
-  }
+  .main { margin-left: 240px; flex: 1; display: flex; flex-direction: column; min-height: 100vh; }
+  .topbar { background: var(--white); border-bottom: 1.5px solid var(--border); padding: 16px 32px; display: flex; align-items: center; justify-content: space-between; position: sticky; top: 0; z-index: 40; box-shadow: 0 2px 12px var(--shadow); }
+  .topbar-title { font-family: 'Playfair Display', serif; font-size: 20px; font-weight: 700; color: var(--dark); }
   .topbar-title span { color: var(--gold); }
   .topbar-actions { display: flex; gap: 10px; align-items: center; }
 
-  .btn {
-    padding: 9px 18px;
-    border: none;
-    border-radius: 10px;
-    font-family: 'DM Sans', sans-serif;
-    font-size: 13px;
-    font-weight: 600;
-    cursor: pointer;
-    transition: all 0.18s;
-  }
-  .btn-primary {
-    background: linear-gradient(135deg, var(--gold), #E8A820);
-    color: var(--white);
-    box-shadow: 0 3px 12px rgba(201,151,43,0.3);
-  }
+  .btn { padding: 9px 18px; border: none; border-radius: 10px; font-family: 'DM Sans', sans-serif; font-size: 13px; font-weight: 600; cursor: pointer; transition: all 0.18s; }
+  .btn-primary { background: linear-gradient(135deg, var(--gold), #E8A820); color: var(--white); box-shadow: 0 3px 12px rgba(201,151,43,0.3); }
   .btn-primary:hover { transform: translateY(-1px); box-shadow: 0 5px 16px rgba(201,151,43,0.4); }
-  .btn-secondary {
-    background: var(--ivory);
-    color: var(--mid);
-    border: 1.5px solid var(--border);
-  }
+  .btn-secondary { background: var(--ivory); color: var(--mid); border: 1.5px solid var(--border); }
   .btn-secondary:hover { background: var(--gold-pale); }
-  .btn-danger {
-    background: var(--error-bg);
-    color: var(--red);
-    border: 1.5px solid #F0B0A8;
-  }
   .btn-sm { padding: 6px 12px; font-size: 12px; }
-  .btn-xs { padding: 4px 9px; font-size: 11px; border-radius: 7px; }
 
-  /* ── CONTENT ── */
   .content { padding: 28px 32px; flex: 1; }
-
-  /* ── TABS (section switcher) ── */
   .section { display: none; }
   .section.active { display: block; }
 
-  /* ── CARDS ── */
-  .card {
-    background: var(--white);
-    border: 1.5px solid var(--border);
-    border-radius: 16px;
-    padding: 22px 24px;
-    margin-bottom: 20px;
-    box-shadow: 0 2px 12px var(--shadow);
-  }
-  .card-title {
-    font-family: 'Playfair Display', serif;
-    font-size: 16px;
-    font-weight: 700;
-    color: var(--dark);
-    margin-bottom: 16px;
-    display: flex;
-    align-items: center;
-    gap: 8px;
-  }
+  .card { background: var(--white); border: 1.5px solid var(--border); border-radius: 16px; padding: 22px 24px; margin-bottom: 20px; box-shadow: 0 2px 12px var(--shadow); }
+  .card-title { font-family: 'Playfair Display', serif; font-size: 16px; font-weight: 700; color: var(--dark); margin-bottom: 16px; display: flex; align-items: center; gap: 8px; }
 
-  /* ── FORM ELEMENTS ── */
   .form-row { margin-bottom: 16px; }
-  .form-row label {
-    display: block;
-    font-size: 12px;
-    font-weight: 600;
-    letter-spacing: 0.8px;
-    text-transform: uppercase;
-    color: var(--soft);
-    margin-bottom: 6px;
-  }
-  .form-input, .form-textarea, .form-select {
-    width: 100%;
-    padding: 10px 14px;
-    border: 1.5px solid var(--border);
-    border-radius: 10px;
-    font-family: 'DM Sans', sans-serif;
-    font-size: 14px;
-    color: var(--dark);
-    background: var(--ivory);
-    transition: border-color 0.18s, box-shadow 0.18s;
-    outline: none;
-  }
-  .form-input:focus, .form-textarea:focus, .form-select:focus {
-    border-color: var(--gold);
-    box-shadow: 0 0 0 3px rgba(201,151,43,0.1);
-    background: var(--white);
-  }
+  .form-row label { display: block; font-size: 12px; font-weight: 600; letter-spacing: 0.8px; text-transform: uppercase; color: var(--soft); margin-bottom: 6px; }
+  .form-input, .form-textarea, .form-select { width: 100%; padding: 10px 14px; border: 1.5px solid var(--border); border-radius: 10px; font-family: 'DM Sans', sans-serif; font-size: 14px; color: var(--dark); background: var(--ivory); transition: border-color 0.18s, box-shadow 0.18s; outline: none; }
+  .form-input:focus, .form-textarea:focus { border-color: var(--gold); box-shadow: 0 0 0 3px rgba(201,151,43,0.1); background: var(--white); }
   .form-textarea { min-height: 80px; resize: vertical; }
   .form-hint { font-size: 11.5px; color: var(--soft); margin-top: 4px; }
-
-  /* Grid */
   .form-grid-2 { display: grid; grid-template-columns: 1fr 1fr; gap: 16px; }
 
-  /* ── TABLE EDITOR ── */
   .table-editor { width: 100%; border-collapse: collapse; }
-  .table-editor th {
-    background: var(--ivory);
-    padding: 9px 12px;
-    font-size: 11px;
-    font-weight: 700;
-    letter-spacing: 1.5px;
-    text-transform: uppercase;
-    color: var(--soft);
-    border-bottom: 1.5px solid var(--border);
-    text-align: left;
-  }
-  .table-editor td {
-    padding: 8px 10px;
-    border-bottom: 1px solid var(--border);
-    vertical-align: middle;
-  }
+  .table-editor th { background: var(--ivory); padding: 9px 12px; font-size: 11px; font-weight: 700; letter-spacing: 1.5px; text-transform: uppercase; color: var(--soft); border-bottom: 1.5px solid var(--border); text-align: left; }
+  .table-editor td { padding: 8px 10px; border-bottom: 1px solid var(--border); vertical-align: middle; }
   .table-editor tr:last-child td { border-bottom: none; }
-  .table-input {
-    width: 100%;
-    padding: 6px 10px;
-    border: 1.5px solid var(--border);
-    border-radius: 8px;
-    font-family: 'DM Sans', sans-serif;
-    font-size: 13px;
-    background: var(--ivory);
-    outline: none;
-    transition: border-color 0.15s;
-  }
+  .table-input { width: 100%; padding: 6px 10px; border: 1.5px solid var(--border); border-radius: 8px; font-family: 'DM Sans', sans-serif; font-size: 13px; background: var(--ivory); outline: none; transition: border-color 0.15s; }
   .table-input:focus { border-color: var(--gold); background: var(--white); }
-  .add-row-btn {
-    margin-top: 10px;
-    display: flex;
-    align-items: center;
-    gap: 6px;
-    padding: 7px 14px;
-    background: var(--ivory);
-    border: 1.5px dashed var(--border);
-    border-radius: 9px;
-    font-size: 13px;
-    color: var(--mid);
-    cursor: pointer;
-    font-family: 'DM Sans', sans-serif;
-    font-weight: 500;
-    transition: all 0.15s;
-  }
+  .add-row-btn { margin-top: 10px; display: flex; align-items: center; gap: 6px; padding: 7px 14px; background: var(--ivory); border: 1.5px dashed var(--border); border-radius: 9px; font-size: 13px; color: var(--mid); cursor: pointer; font-family: 'DM Sans', sans-serif; font-weight: 500; transition: all 0.15s; }
   .add-row-btn:hover { border-color: var(--gold); color: var(--gold); background: var(--gold-pale); }
-  .del-btn {
-    background: none;
-    border: none;
-    color: var(--red);
-    cursor: pointer;
-    font-size: 16px;
-    padding: 2px 6px;
-    border-radius: 6px;
-    transition: background 0.12s;
-  }
+  .del-btn { background: none; border: none; color: var(--red); cursor: pointer; font-size: 16px; padding: 2px 6px; border-radius: 6px; transition: background 0.12s; }
   .del-btn:hover { background: var(--error-bg); }
 
-  /* ── DRAG DROP ── */
-  .drop-zone {
-    border: 2.5px dashed var(--border);
-    border-radius: 14px;
-    padding: 28px 20px;
-    text-align: center;
-    cursor: pointer;
-    transition: all 0.2s;
-    background: var(--ivory);
-  }
-  .drop-zone:hover, .drop-zone.drag-over {
-    border-color: var(--gold);
-    background: var(--gold-pale);
-  }
+  .drop-zone { border: 2.5px dashed var(--border); border-radius: 14px; padding: 28px 20px; text-align: center; cursor: pointer; transition: all 0.2s; background: var(--ivory); }
+  .drop-zone:hover, .drop-zone.drag-over { border-color: var(--gold); background: var(--gold-pale); }
   .drop-zone-icon { font-size: 36px; margin-bottom: 10px; }
   .drop-zone-label { font-size: 14px; font-weight: 500; color: var(--mid); }
   .drop-zone-hint { font-size: 12px; color: var(--soft); margin-top: 4px; }
   .drop-zone input[type=file] { display: none; }
 
-  .preview-frame {
-    display: none;
-    margin-top: 12px;
-    text-align: center;
-  }
-  .preview-frame img {
-    height: 80px;
-    border-radius: 12px;
-    border: 2px solid var(--gold-light);
-    box-shadow: 0 2px 10px var(--shadow);
-  }
-  .preview-label {
-    font-size: 11px;
-    color: var(--soft);
-    margin-top: 6px;
-  }
+  .preview-frame { display: none; margin-top: 12px; text-align: center; }
+  .preview-frame img { height: 80px; border-radius: 12px; border: 2px solid var(--gold-light); box-shadow: 0 2px 10px var(--shadow); }
+  .preview-label { font-size: 11px; color: var(--soft); margin-top: 6px; }
 
-  /* ── TOAST ── */
-  .toast {
-    position: fixed;
-    bottom: 28px;
-    right: 28px;
-    background: var(--dark);
-    color: var(--white);
-    padding: 13px 20px;
-    border-radius: 12px;
-    font-size: 14px;
-    font-weight: 500;
-    box-shadow: 0 6px 24px rgba(0,0,0,0.25);
-    z-index: 999;
-    transform: translateY(80px);
-    opacity: 0;
-    transition: all 0.28s cubic-bezier(0.32,0.72,0,1);
-    display: flex;
-    align-items: center;
-    gap: 10px;
-    max-width: 320px;
-  }
+  /* Cloudinary badge */
+  .cloud-badge { display: inline-block; background: #EEF3FA; border: 1px solid #C5D5EC; color: var(--accent); font-size: 11px; font-weight: 600; padding: 2px 8px; border-radius: 20px; margin-left: 8px; }
+
+  /* Upload progress */
+  .upload-progress { display: none; margin-top: 10px; }
+  .upload-progress-bar { height: 4px; border-radius: 2px; background: var(--border); overflow: hidden; margin-bottom: 4px; }
+  .upload-progress-fill { height: 100%; border-radius: 2px; background: linear-gradient(90deg, var(--gold), var(--gold-light)); width: 0%; transition: width 0.3s; animation: progressAnim 1.5s ease-in-out infinite; }
+  @keyframes progressAnim { 0%{width:10%} 50%{width:80%} 100%{width:95%} }
+  .upload-progress-text { font-size: 11px; color: var(--soft); text-align: center; }
+
+  .toast { position: fixed; bottom: 28px; right: 28px; background: var(--dark); color: var(--white); padding: 13px 20px; border-radius: 12px; font-size: 14px; font-weight: 500; box-shadow: 0 6px 24px rgba(0,0,0,0.25); z-index: 999; transform: translateY(80px); opacity: 0; transition: all 0.28s cubic-bezier(0.32,0.72,0,1); display: flex; align-items: center; gap: 10px; max-width: 320px; }
   .toast.show { transform: translateY(0); opacity: 1; }
   .toast.success { border-left: 4px solid var(--green); }
   .toast.error { border-left: 4px solid var(--red); }
 
-  /* ── EXCEL IMPORT ── */
-  .excel-info {
-    background: #EEF3FA;
-    border: 1.5px solid #C5D5EC;
-    border-radius: 12px;
-    padding: 14px 16px;
-    margin-bottom: 14px;
-    font-size: 13px;
-    color: var(--accent);
-    line-height: 1.6;
-  }
+  .excel-info { background: #EEF3FA; border: 1.5px solid #C5D5EC; border-radius: 12px; padding: 14px 16px; margin-bottom: 14px; font-size: 13px; color: var(--accent); line-height: 1.6; }
   .excel-info strong { font-weight: 600; }
-  .excel-cols-info {
-    display: flex;
-    gap: 8px;
-    margin-top: 8px;
-    flex-wrap: wrap;
-  }
-  .col-tag {
-    background: var(--accent);
-    color: var(--white);
-    padding: 3px 10px;
-    border-radius: 20px;
-    font-size: 11px;
-    font-weight: 600;
-    font-family: 'Space Mono', monospace;
-  }
+  .excel-cols-info { display: flex; gap: 8px; margin-top: 8px; flex-wrap: wrap; }
+  .col-tag { background: var(--accent); color: var(--white); padding: 3px 10px; border-radius: 20px; font-size: 11px; font-weight: 600; font-family: 'Space Mono', monospace; }
 
-  /* Rules list editor */
-  .rule-editor-item {
-    display: flex;
-    gap: 8px;
-    align-items: flex-start;
-    margin-bottom: 8px;
-  }
-  .rule-num-badge {
-    width: 26px;
-    height: 26px;
-    border-radius: 7px;
-    background: linear-gradient(135deg, var(--gold), var(--gold-light));
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    font-size: 11px;
-    font-weight: 700;
-    color: var(--white);
-    flex-shrink: 0;
-    margin-top: 6px;
-    font-family: 'Space Mono', monospace;
-  }
+  /* Cloudinary info box */
+  .cloudinary-info { background: linear-gradient(135deg, #E8F4FD, #EEF3FA); border: 1.5px solid #B8D4EC; border-radius: 12px; padding: 14px 16px; margin-bottom: 20px; }
+  .cloudinary-info-title { font-size: 13px; font-weight: 700; color: var(--accent); margin-bottom: 6px; display: flex; align-items: center; gap: 6px; }
+  .cloudinary-info-text { font-size: 12px; color: #3A5A80; line-height: 1.5; }
+  .cloudinary-creds { display: flex; gap: 8px; margin-top: 8px; flex-wrap: wrap; }
+  .cred-tag { background: var(--accent); color: var(--white); padding: 3px 10px; border-radius: 20px; font-size: 11px; font-weight: 600; font-family: 'Space Mono', monospace; }
 
-  /* Stats bar */
-  .stats-bar {
-    display: grid;
-    grid-template-columns: repeat(3, 1fr);
-    gap: 16px;
-    margin-bottom: 24px;
-  }
-  .stat-card {
-    background: var(--white);
-    border: 1.5px solid var(--border);
-    border-radius: 14px;
-    padding: 16px 18px;
-    box-shadow: 0 2px 10px var(--shadow);
-  }
+  .stats-bar { display: grid; grid-template-columns: repeat(3, 1fr); gap: 16px; margin-bottom: 24px; }
+  .stat-card { background: var(--white); border: 1.5px solid var(--border); border-radius: 14px; padding: 16px 18px; box-shadow: 0 2px 10px var(--shadow); }
   .stat-label { font-size: 11px; font-weight: 600; letter-spacing: 1px; text-transform: uppercase; color: var(--soft); margin-bottom: 6px; }
   .stat-value { font-family: 'Space Mono', monospace; font-size: 22px; font-weight: 700; color: var(--dark); }
   .stat-sub { font-size: 12px; color: var(--soft); margin-top: 2px; }
 
-  /* Responsive */
-  @media (max-width: 900px) {
-    .sidebar { width: 200px; }
-    .main { margin-left: 200px; }
-    .content { padding: 20px; }
-    .form-grid-2 { grid-template-columns: 1fr; }
-    .stats-bar { grid-template-columns: 1fr 1fr; }
-    .topbar { padding: 14px 20px; }
-  }
-
-  @media (max-width: 640px) {
-    .sidebar { display: none; }
-    .main { margin-left: 0; }
-    .stats-bar { grid-template-columns: 1fr; }
-  }
-
-  /* ── RICH TEXT EDITOR ── */
-  .rte-toolbar {
-    display: flex;
-    align-items: center;
-    gap: 4px;
-    background: var(--ivory);
-    border: 1.5px solid var(--border);
-    border-radius: 10px 10px 0 0;
-    padding: 8px 10px;
-    flex-wrap: wrap;
-  }
-  .rte-btn {
-    padding: 5px 11px;
-    border: 1.5px solid var(--border);
-    border-radius: 7px;
-    background: var(--white);
-    font-family: 'DM Sans', sans-serif;
-    font-size: 13px;
-    color: var(--dark);
-    cursor: pointer;
-    transition: all 0.15s;
-    line-height: 1;
-    min-width: 34px;
-    text-align: center;
-    display: inline-flex;
-    align-items: center;
-    justify-content: center;
-    gap: 3px;
-  }
+  .rte-toolbar { display: flex; align-items: center; gap: 4px; background: var(--ivory); border: 1.5px solid var(--border); border-radius: 10px 10px 0 0; padding: 8px 10px; flex-wrap: wrap; }
+  .rte-btn { padding: 5px 11px; border: 1.5px solid var(--border); border-radius: 7px; background: var(--white); font-family: 'DM Sans', sans-serif; font-size: 13px; color: var(--dark); cursor: pointer; transition: all 0.15s; line-height: 1; min-width: 34px; text-align: center; display: inline-flex; align-items: center; justify-content: center; gap: 3px; }
   .rte-btn:hover { background: var(--gold-pale); border-color: var(--gold); color: var(--gold); }
-  .rte-btn:active { transform: scale(0.95); }
-  .rte-btn b { font-weight: 800; }
-  .rte-btn.rte-italic i { font-style: italic; font-family: Georgia, serif; }
-  .rte-sep {
-    width: 1px;
-    height: 22px;
-    background: var(--border);
-    margin: 0 4px;
-  }
-  .rte-editor {
-    min-height: 220px;
-    border: 1.5px solid var(--border);
-    border-top: none;
-    border-radius: 0 0 10px 10px;
-    padding: 14px 16px;
-    font-family: 'DM Sans', sans-serif;
-    font-size: 14px;
-    line-height: 1.7;
-    color: var(--dark);
-    background: var(--white);
-    outline: none;
-    transition: border-color 0.18s;
-  }
+  .rte-sep { width: 1px; height: 22px; background: var(--border); margin: 0 4px; }
+  .rte-editor { min-height: 220px; border: 1.5px solid var(--border); border-top: none; border-radius: 0 0 10px 10px; padding: 14px 16px; font-family: 'DM Sans', sans-serif; font-size: 14px; line-height: 1.7; color: var(--dark); background: var(--white); outline: none; transition: border-color 0.18s; }
   .rte-editor:focus { border-color: var(--gold); }
-  .rte-editor h3 {
-    font-family: 'Playfair Display', serif;
-    font-size: 17px;
-    font-weight: 700;
-    color: var(--dark);
-    margin: 12px 0 4px;
-    border-bottom: 1.5px solid var(--border);
-    padding-bottom: 4px;
-  }
+  .rte-editor h3 { font-family: 'Playfair Display', serif; font-size: 17px; font-weight: 700; color: var(--dark); margin: 12px 0 4px; border-bottom: 1.5px solid var(--border); padding-bottom: 4px; }
   .rte-editor h3:first-child { margin-top: 0; }
   .rte-editor b, .rte-editor strong { font-weight: 700; color: var(--dark); }
   .rte-editor i, .rte-editor em { font-style: italic; color: var(--mid); }
@@ -515,65 +146,52 @@
   .rte-editor li { margin: 3px 0; }
   .rte-editor p { margin: 4px 0; }
   .rte-hint { font-size: 11.5px; color: var(--soft); margin-top: 8px; padding-left: 2px; }
+
+  /* VIP frame cell */
+  .vip-frame-cell { text-align: center; }
+  .vip-frame-thumb { width: 40px; height: 40px; border-radius: 50%; border: 2px solid var(--gold-light); object-fit: cover; cursor: pointer; transition: transform 0.15s; }
+  .vip-frame-thumb:hover { transform: scale(1.1); }
+  .vip-upload-btn { font-size: 11px; color: var(--accent); cursor: pointer; text-decoration: underline; display: block; margin-top: 3px; }
+
+  @media (max-width: 900px) {
+    .sidebar { width: 200px; } .main { margin-left: 200px; } .content { padding: 20px; }
+    .form-grid-2 { grid-template-columns: 1fr; } .stats-bar { grid-template-columns: 1fr 1fr; } .topbar { padding: 14px 20px; }
+  }
+  @media (max-width: 640px) { .sidebar { display: none; } .main { margin-left: 0; } .stats-bar { grid-template-columns: 1fr; } }
 </style>
 </head>
 <body>
-
 <div class="layout">
-  <!-- ══════════ SIDEBAR ══════════ -->
   <aside class="sidebar">
     <div class="sidebar-logo">
       <div class="sidebar-logo-icon">🏆</div>
-      <div class="sidebar-logo-text">
-        Recharge Arena
-        <sub>Admin Panel</sub>
-      </div>
+      <div class="sidebar-logo-text">Recharge Arena<sub>Admin Panel</sub></div>
     </div>
-
     <div class="nav-section-label">Management</div>
-    <div class="nav-item active" onclick="showSection('general')">
-      <span class="nav-icon">⚙️</span> General Settings
-    </div>
-    <div class="nav-item" onclick="showSection('leaderboard')">
-      <span class="nav-icon">🏅</span> Leaderboard
-    </div>
-    <div class="nav-item" onclick="showSection('rules')">
-      <span class="nav-icon">📋</span> Rules
-    </div>
+    <div class="nav-item active" onclick="showSection('general',this)"><span class="nav-icon">⚙️</span> General Settings</div>
+    <div class="nav-item" onclick="showSection('leaderboard',this)"><span class="nav-icon">🏅</span> Leaderboard</div>
+    <div class="nav-item" onclick="showSection('rules',this)"><span class="nav-icon">📋</span> Rules</div>
     <div class="nav-section-label">Rewards</div>
-    <div class="nav-item" onclick="showSection('ranking-reward')">
-      <span class="nav-icon">🏆</span> Ranking Rewards
-    </div>
-    <div class="nav-item" onclick="showSection('vip-reward')">
-      <span class="nav-icon">👑</span> VIP Rewards
-    </div>
-    <div class="nav-item" onclick="showSection('exclusive-reward')">
-      <span class="nav-icon">💎</span> Exclusive Reward
-    </div>
+    <div class="nav-item" onclick="showSection('ranking-reward',this)"><span class="nav-icon">🏆</span> Ranking Rewards</div>
+    <div class="nav-item" onclick="showSection('vip-reward',this)"><span class="nav-icon">👑</span> VIP Rewards</div>
+    <div class="nav-item" onclick="showSection('exclusive-reward',this)"><span class="nav-icon">💎</span> Exclusive Reward</div>
     <div class="nav-section-label">Tools</div>
-    <div class="nav-item" onclick="previewPage()">
-      <span class="nav-icon">👁️</span> Preview Page
-    </div>
-    <div class="nav-item" onclick="resetData()">
-      <span class="nav-icon">🔄</span> Reset All Data
-    </div>
-
-    <div class="sidebar-footer">Recharge Arena v1.0</div>
+    <div class="nav-item" onclick="exportJSON()"><span class="nav-icon">⬇️</span> Export JSON</div>
+    <div class="nav-item" onclick="resetData()"><span class="nav-icon">🔄</span> Reset All Data</div>
+    <div class="sidebar-footer">Recharge Arena v3.0 · Cloudinary</div>
   </aside>
 
-  <!-- ══════════ MAIN ══════════ -->
   <div class="main">
     <div class="topbar">
       <div class="topbar-title">Admin <span>Panel</span></div>
       <div class="topbar-actions">
+        <button class="btn btn-secondary btn-sm" onclick="testCloudinaryConnection()">☁️ Test Cloud</button>
         <button class="btn btn-secondary" onclick="exportJSON()">⬇ Export JSON</button>
         <button class="btn btn-primary" onclick="saveAll()">💾 Save &amp; Publish</button>
       </div>
     </div>
 
     <div class="content">
-
-      <!-- ── STATS ── -->
       <div class="stats-bar">
         <div class="stat-card">
           <div class="stat-label">Players</div>
@@ -592,22 +210,39 @@
         </div>
       </div>
 
-      <!-- ══════════ SECTION: GENERAL ══════════ -->
+      <!-- SECTION: GENERAL -->
       <div class="section active" id="sec-general">
+
+        <div class="cloudinary-info">
+          <div class="cloudinary-info-title">☁️ Cloudinary Connected</div>
+          <div class="cloudinary-info-text">
+            Images ab Cloudinary cloud pe store hongi — localStorage limit khatam! Folder: <strong>recharge-arena/</strong>
+          </div>
+          <div class="cloudinary-creds">
+            <span class="cred-tag">Cloud: dynrnfcfv</span>
+            <span class="cred-tag">Folder: recharge-arena</span>
+            <span class="cred-tag">Free: 25GB</span>
+          </div>
+        </div>
+
         <div class="card">
           <div class="card-title">⚙️ General Settings</div>
 
           <div class="form-row">
-            <label>Logo (Upload Image)</label>
+            <label>Logo Upload <span class="cloud-badge">☁️ Cloudinary</span></label>
             <div class="drop-zone" id="logoDropzone" onclick="document.getElementById('logoFile').click()">
               <div class="drop-zone-icon">🖼️</div>
               <div class="drop-zone-label">Click to upload logo</div>
-              <div class="drop-zone-hint">PNG, JPG — Max 2MB</div>
+              <div class="drop-zone-hint">PNG, JPG — Uploaded to Cloudinary cloud (no size limit)</div>
               <input type="file" id="logoFile" accept="image/*" onchange="handleLogoUpload(this)">
+            </div>
+            <div class="upload-progress" id="logoProgress">
+              <div class="upload-progress-bar"><div class="upload-progress-fill"></div></div>
+              <div class="upload-progress-text">☁️ Uploading to Cloudinary...</div>
             </div>
             <div class="preview-frame" id="logoPreview">
               <img id="logoPreviewImg" src="" alt="Logo Preview">
-              <div class="preview-label">Logo Preview</div>
+              <div class="preview-label" id="logoSizeLabel">Logo Preview</div>
             </div>
           </div>
 
@@ -631,50 +266,38 @@
             <div class="form-row">
               <label>Event Start Date &amp; Time</label>
               <input type="datetime-local" class="form-input" id="eventStartDate">
-              <div class="form-hint">Shown in date badge as "From" date</div>
             </div>
             <div class="form-row">
               <label>Event End Date &amp; Time</label>
               <input type="datetime-local" class="form-input" id="eventEndDate">
-              <div class="form-hint">Countdown timer targets this date</div>
             </div>
           </div>
         </div>
       </div>
 
-      <!-- ══════════ SECTION: LEADERBOARD ══════════ -->
+      <!-- SECTION: LEADERBOARD -->
       <div class="section" id="sec-leaderboard">
         <div class="card">
           <div class="card-title">🏅 Leaderboard Data</div>
-
           <div class="excel-info">
-            <strong>📊 Excel / CSV Import:</strong> Drag &amp; drop an Excel or CSV file below. Make sure your file has these column headers in order:
+            <strong>📊 CSV Import:</strong> Drag &amp; drop a CSV file below. Column order:
             <div class="excel-cols-info">
               <span class="col-tag">Col A: Rank</span>
               <span class="col-tag">Col B: Name</span>
               <span class="col-tag">Col C: Points</span>
             </div>
           </div>
-
           <div class="drop-zone" id="csvDropzone" onclick="document.getElementById('csvFile').click()"
                ondragover="handleDragOver(event,'csvDropzone')" ondragleave="handleDragLeave(event,'csvDropzone')"
                ondrop="handleCsvDrop(event)">
             <div class="drop-zone-icon">📥</div>
-            <div class="drop-zone-label">Drop Excel / CSV here or click to upload</div>
-            <div class="drop-zone-hint">.csv, .xlsx — data replaces existing leaderboard</div>
-            <input type="file" id="csvFile" accept=".csv,.xlsx,.xls" onchange="handleCsvFile(this)">
+            <div class="drop-zone-label">Drop CSV here or click to upload</div>
+            <div class="drop-zone-hint">.csv — replaces existing leaderboard</div>
+            <input type="file" id="csvFile" accept=".csv" onchange="handleCsvFile(this)">
           </div>
-
-          <div style="margin-top: 16px;">
+          <div style="margin-top:16px;">
             <table class="table-editor" style="margin-bottom:8px;">
-              <thead>
-                <tr>
-                  <th style="width:70px;">Rank</th>
-                  <th>Name</th>
-                  <th style="width:110px;">Points</th>
-                  <th style="width:40px;"></th>
-                </tr>
-              </thead>
+              <thead><tr><th style="width:70px;">Rank</th><th>Name</th><th style="width:110px;">Points</th><th style="width:40px;"></th></tr></thead>
               <tbody id="lbEditorBody"></tbody>
             </table>
             <button class="add-row-btn" onclick="addLbRow()">+ Add Player</button>
@@ -682,57 +305,49 @@
         </div>
       </div>
 
-      <!-- ══════════ SECTION: RULES ══════════ -->
+      <!-- SECTION: RULES -->
       <div class="section" id="sec-rules">
         <div class="card">
           <div class="card-title">📋 Event Rules</div>
-          <p style="font-size:13px;color:var(--soft);margin-bottom:14px;">Use the toolbar to format — Heading, Bold, Italic, Numbered List, Bullet List.</p>
           <div class="rte-toolbar">
-            <button class="rte-btn" title="Heading" onclick="rteCmd('formatBlock','H3')"><b>H</b></button>
+            <button class="rte-btn" onclick="rteCmd('formatBlock','H3')"><b>H</b></button>
             <div class="rte-sep"></div>
-            <button class="rte-btn" title="Bold" onclick="rteCmd('bold')"><b>B</b></button>
-            <button class="rte-btn rte-italic" title="Italic" onclick="rteCmd('italic')"><i>I</i></button>
+            <button class="rte-btn" onclick="rteCmd('bold')"><b>B</b></button>
+            <button class="rte-btn" onclick="rteCmd('italic')"><i>I</i></button>
             <div class="rte-sep"></div>
-            <button class="rte-btn" title="Numbered List" onclick="rteCmd('insertOrderedList')">1. —</button>
-            <button class="rte-btn" title="Bullet List" onclick="rteCmd('insertUnorderedList')">• —</button>
+            <button class="rte-btn" onclick="rteCmd('insertOrderedList')">1. —</button>
+            <button class="rte-btn" onclick="rteCmd('insertUnorderedList')">• —</button>
             <div class="rte-sep"></div>
-            <button class="rte-btn" title="Clear Format" onclick="rteCmd('removeFormat')">✕ Clear</button>
+            <button class="rte-btn" onclick="rteCmd('removeFormat')">✕ Clear</button>
           </div>
           <div class="rte-editor" id="rulesRTE" contenteditable="true"></div>
-          <div class="rte-hint">💡 Tip: Select text then click toolbar button to format. Press Enter for new line.</div>
+          <div class="rte-hint">💡 Select text then click toolbar button to format.</div>
         </div>
       </div>
 
-      <!-- ══════════ SECTION: RANKING REWARDS ══════════ -->
+      <!-- SECTION: RANKING REWARDS -->
       <div class="section" id="sec-ranking-reward">
         <div class="card">
           <div class="card-title">🏆 Ranking Rewards</div>
-          <p style="font-size:13px;color:var(--soft);margin-bottom:16px;">Set rebate rewards per rank range.</p>
           <table class="table-editor">
-            <thead>
-              <tr>
-                <th>Rank</th>
-                <th>Rebate / Reward</th>
-                <th style="width:40px;"></th>
-              </tr>
-            </thead>
+            <thead><tr><th>Rank</th><th>Rebate / Reward</th><th style="width:40px;"></th></tr></thead>
             <tbody id="rankingRewardEditorBody"></tbody>
           </table>
           <button class="add-row-btn" onclick="addRankingReward()">+ Add Rank Tier</button>
         </div>
       </div>
 
-      <!-- ══════════ SECTION: VIP REWARDS ══════════ -->
+      <!-- SECTION: VIP REWARDS -->
       <div class="section" id="sec-vip-reward">
         <div class="card">
-          <div class="card-title">👑 VIP Rewards</div>
-          <p style="font-size:13px;color:var(--soft);margin-bottom:16px;">Upload avatar frames (PNG) per rank. They appear in the Rewards modal.</p>
+          <div class="card-title">👑 VIP Rewards <span class="cloud-badge">☁️ Cloudinary</span></div>
+          <p style="font-size:13px;color:var(--soft);margin-bottom:16px;">Upload avatar frames per rank — stored on Cloudinary, no storage limit.</p>
           <table class="table-editor">
             <thead>
               <tr>
                 <th style="width:80px;">Rank</th>
-                <th>VIP Frame (PNG)</th>
-                <th>Emoji (fallback)</th>
+                <th style="width:80px;">Frame</th>
+                <th>Emoji</th>
                 <th>Validity</th>
                 <th style="width:40px;"></th>
               </tr>
@@ -743,429 +358,453 @@
         </div>
       </div>
 
-      <!-- ══════════ SECTION: EXCLUSIVE REWARD ══════════ -->
+      <!-- SECTION: EXCLUSIVE REWARD -->
       <div class="section" id="sec-exclusive-reward">
         <div class="card">
-          <div class="card-title">💎 Exclusive Reward</div>
-          <p style="font-size:13px;color:var(--soft);margin-bottom:16px;">Upload the exclusive frame and describe who receives it.</p>
-
+          <div class="card-title">💎 Exclusive Reward <span class="cloud-badge">☁️ Cloudinary</span></div>
           <div class="form-row">
-            <label>Exclusive Frame (PNG)</label>
+            <label>Exclusive Frame (PNG) — Cloudinary Upload</label>
             <div class="drop-zone" id="exclusiveDropzone" onclick="document.getElementById('exclusiveFile').click()">
               <div class="drop-zone-icon">💎</div>
               <div class="drop-zone-label">Click to upload exclusive frame</div>
-              <div class="drop-zone-hint">PNG recommended — displayed as large circular preview</div>
+              <div class="drop-zone-hint">PNG — uploaded to Cloudinary cloud</div>
               <input type="file" id="exclusiveFile" accept="image/*" onchange="handleExclusiveUpload(this)">
+            </div>
+            <div class="upload-progress" id="exclusiveProgress">
+              <div class="upload-progress-bar"><div class="upload-progress-fill"></div></div>
+              <div class="upload-progress-text">☁️ Uploading to Cloudinary...</div>
             </div>
             <div class="preview-frame" id="exclusivePreview">
               <img id="exclusivePreviewImg" src="" alt="Exclusive Frame Preview">
-              <div class="preview-label">Exclusive Frame Preview</div>
+              <div class="preview-label" id="exclusiveSizeLabel">Exclusive Frame Preview</div>
             </div>
           </div>
-
           <div class="form-row">
             <label>Exclusive Emoji (fallback)</label>
             <input type="text" class="form-input" id="exclusiveEmoji" placeholder="💎" maxlength="4">
           </div>
-
           <div class="form-row">
             <label>Who Receives This Reward?</label>
-            <textarea class="form-textarea" id="exclusiveDesc" placeholder="e.g. This exclusive diamond frame is awarded to the Top 3 ranked players who maintain their position until the event ends."></textarea>
-            <div class="form-hint">Supports basic HTML: &lt;strong&gt;, &lt;em&gt; tags allowed</div>
+            <textarea class="form-textarea" id="exclusiveDesc" placeholder="e.g. This exclusive diamond frame is awarded to the Top 3 ranked players..."></textarea>
           </div>
         </div>
       </div>
 
-    </div><!-- /content -->
-  </div><!-- /main -->
-</div><!-- /layout -->
+    </div>
+  </div>
+</div>
 
-<!-- Toast -->
 <div class="toast" id="toast"></div>
 
 <script>
-// ══════════════════════════════════════
-// DATA MANAGEMENT
-// ══════════════════════════════════════
-const KEY = 'rechargeArenaData';
+// ══════════════════════════════
+// CLOUDINARY CONFIG
+// ══════════════════════════════
+const CLOUDINARY_CLOUD_NAME  = 'dynrnfcfv';
+const CLOUDINARY_UPLOAD_PRESET = 'recharge_arena'; // Tumhe ye preset Cloudinary dashboard pe banana hai (unsigned)
+const CLOUDINARY_FOLDER = 'recharge-arena';
+
+// ══════════════════════════════
+// CLOUDINARY UPLOAD FUNCTION
+// ══════════════════════════════
+async function uploadToCloudinary(file, subFolder) {
+  const formData = new FormData();
+  formData.append('file', file);
+  formData.append('upload_preset', CLOUDINARY_UPLOAD_PRESET);
+  formData.append('folder', CLOUDINARY_FOLDER + '/' + subFolder);
+
+  const response = await fetch(
+    `https://api.cloudinary.com/v1_1/${CLOUDINARY_CLOUD_NAME}/image/upload`,
+    { method: 'POST', body: formData }
+  );
+
+  if (!response.ok) {
+    const errData = await response.json();
+    throw new Error(errData.error?.message || 'Upload failed');
+  }
+
+  const data = await response.json();
+  return data.secure_url; // HTTPS URL jo Cloudinary deta hai
+}
+
+// Cloudinary connection test
+async function testCloudinaryConnection() {
+  showToast('🔄 Testing Cloudinary connection...', 'success');
+  try {
+    // Simple test with a tiny 1px image
+    const canvas = document.createElement('canvas');
+    canvas.width = 1; canvas.height = 1;
+    canvas.getContext('2d').fillRect(0,0,1,1);
+    canvas.toBlob(async (blob) => {
+      try {
+        const url = await uploadToCloudinary(new File([blob], 'test.jpg', {type:'image/jpeg'}), 'test');
+        showToast('✅ Cloudinary connected! Cloud: dynrnfcfv', 'success');
+      } catch(e) {
+        showToast('❌ ' + e.message, 'error');
+      }
+    }, 'image/jpeg');
+  } catch(e) {
+    showToast('❌ Connection failed: ' + e.message, 'error');
+  }
+}
+
+// ══════════════════════════════
+// STORAGE KEYS — sirf URLs store hongi (images Cloudinary pe)
+// ══════════════════════════════
+const KEY_DATA    = 'rca_data';
+const KEY_LOGO    = 'rca_logo_url';   // Sirf Cloudinary URL
+const KEY_EXCL    = 'rca_excl_url';   // Sirf Cloudinary URL
+const KEY_VIP_PRE = 'rca_vip_url_';  // Sirf Cloudinary URLs
 
 const defaults = {
   eventName: "Recharge Arena",
   eventSubtitle: "Users earn Event Points by purchasing coins during the event period.",
   eventStartDate: new Date().toISOString().slice(0,16),
-  eventEndDate: new Date(Date.now() + 5 * 24 * 60 * 60 * 1000).toISOString().slice(0,16),
+  eventEndDate: new Date(Date.now() + 5*24*60*60*1000).toISOString().slice(0,16),
   logoEmoji: "🏆",
-  logoUrl: "",
   leaderboard: [],
-  rules: [],
+  rules: '',
   rankingRewards: [],
   vipRewards: [],
-  exclusiveFrameUrl: "",
   exclusiveFrameEmoji: "💎",
   exclusiveDesc: "This exclusive diamond frame is awarded to the <strong>Top 3 ranked players</strong> who maintain their position until the event ends."
 };
 
 function loadData() {
   try {
-    const raw = localStorage.getItem(KEY);
-    return raw ? Object.assign({}, defaults, JSON.parse(raw)) : defaults;
-  } catch(e) { return defaults; }
+    const raw = localStorage.getItem(KEY_DATA);
+    return raw ? Object.assign({}, defaults, JSON.parse(raw)) : Object.assign({}, defaults);
+  } catch(e) { return Object.assign({}, defaults); }
 }
 
-function getData() {
-  const d = loadData();
-
-  // Event name / subtitle
-  d.eventName = document.getElementById('eventName').value || d.eventName;
-  d.eventSubtitle = document.getElementById('eventSubtitle').value || d.eventSubtitle;
-  d.eventStartDate = document.getElementById('eventStartDate').value ? new Date(document.getElementById('eventStartDate').value).toISOString() : d.eventStartDate;
-  d.eventEndDate = document.getElementById('eventEndDate').value ? new Date(document.getElementById('eventEndDate').value).toISOString() : d.eventEndDate;
-  d.logoEmoji = document.getElementById('logoEmoji').value || '🏆';
-  d.exclusiveEmoji = document.getElementById('exclusiveEmoji').value || '💎';
-  d.exclusiveDesc = document.getElementById('exclusiveDesc').value || d.exclusiveDesc;
-
-  // Leaderboard
-  d.leaderboard = getLbData();
-  // Rules (stored as HTML string)
-  d.rules = getRulesHTML();
-  // Ranking rewards
-  d.rankingRewards = getRankingRewards();
-  // VIP rewards
-  d.vipRewards = getVipRewards();
-
-  // Exclusive emoji
-  d.exclusiveFrameEmoji = d.exclusiveEmoji;
-
-  return d;
+function saveData(d) {
+  const clean = Object.assign({}, d);
+  localStorage.setItem(KEY_DATA, JSON.stringify(clean));
 }
 
-// ══════ INIT ══════
+// ══════════════════════════════
+// INIT
+// ══════════════════════════════
 function init() {
   const d = loadData();
-
-  document.getElementById('eventName').value = d.eventName;
-  document.getElementById('eventSubtitle').value = d.eventSubtitle;
+  document.getElementById('eventName').value = d.eventName || '';
+  document.getElementById('eventSubtitle').value = d.eventSubtitle || '';
   document.getElementById('logoEmoji').value = d.logoEmoji || '🏆';
   document.getElementById('exclusiveEmoji').value = d.exclusiveFrameEmoji || '💎';
   document.getElementById('exclusiveDesc').value = d.exclusiveDesc || '';
+  if (d.eventStartDate) document.getElementById('eventStartDate').value = d.eventStartDate.slice(0,16);
+  if (d.eventEndDate) document.getElementById('eventEndDate').value = d.eventEndDate.slice(0,16);
 
-  if (d.eventStartDate) {
-    const ds = new Date(d.eventStartDate);
-    document.getElementById('eventStartDate').value = ds.toISOString().slice(0,16);
-  }
-  if (d.eventEndDate) {
-    const dt = new Date(d.eventEndDate);
-    document.getElementById('eventEndDate').value = dt.toISOString().slice(0,16);
-  }
-
-  if (d.logoUrl) {
-    document.getElementById('logoPreviewImg').src = d.logoUrl;
+  // Load image URLs from localStorage (these are just Cloudinary URLs now)
+  const logoUrl = localStorage.getItem(KEY_LOGO);
+  if (logoUrl) {
+    document.getElementById('logoPreviewImg').src = logoUrl;
     document.getElementById('logoPreview').style.display = 'block';
-  }
-  if (d.exclusiveFrameUrl) {
-    document.getElementById('exclusivePreviewImg').src = d.exclusiveFrameUrl;
-    document.getElementById('exclusivePreview').style.display = 'block';
+    document.getElementById('logoSizeLabel').textContent = '✅ Logo (Cloudinary)';
   }
 
-  renderLbEditor(d.leaderboard);
-  renderRulesEditor(d.rules || '');
-  renderRankingRewardsEditor(d.rankingRewards);
-  renderVipRewardsEditor(d.vipRewards);
+  const exclUrl = localStorage.getItem(KEY_EXCL);
+  if (exclUrl) {
+    document.getElementById('exclusivePreviewImg').src = exclUrl;
+    document.getElementById('exclusivePreview').style.display = 'block';
+    document.getElementById('exclusiveSizeLabel').textContent = '✅ Frame (Cloudinary)';
+  }
+
+  renderLbEditor(d.leaderboard || []);
+  document.getElementById('rulesRTE').innerHTML = d.rules || '';
+  renderRankingRewardsEditor(d.rankingRewards || []);
+  renderVipRewardsEditor(d.vipRewards || []);
   updateStats(d);
 }
 
-// ══════ STATS ══════
+// ══════════════════════════════
+// STATS
+// ══════════════════════════════
 function updateStats(d) {
-  document.getElementById('statPlayers').textContent = (d.leaderboard || []).length;
-  // rules is now HTML string — count headings + list items + paragraphs
-  const rulesTmp = document.createElement('div');
-  rulesTmp.innerHTML = typeof d.rules === 'string' ? d.rules : (d.rules||[]).join('');
-  const ruleCount = rulesTmp.querySelectorAll('h3,li,p,div').length;
-  document.getElementById('statRules').textContent = ruleCount;
-  const end = new Date(d.eventEndDate);
-  const now = new Date();
+  document.getElementById('statPlayers').textContent = (d.leaderboard||[]).length;
+  const tmp = document.createElement('div');
+  tmp.innerHTML = d.rules || '';
+  document.getElementById('statRules').textContent = tmp.querySelectorAll('h3,li,p').length;
+  const end = new Date(d.eventEndDate); const now = new Date();
   if (end > now) {
-    const diff = Math.ceil((end - now) / 86400000);
     document.getElementById('statStatus').textContent = 'Active';
-    document.getElementById('statStatusSub').textContent = diff + ' day(s) left';
+    document.getElementById('statStatusSub').textContent = Math.ceil((end-now)/86400000) + ' day(s) left';
   } else {
     document.getElementById('statStatus').textContent = 'Ended';
     document.getElementById('statStatusSub').textContent = 'Event is over';
   }
 }
 
-// ══════ SECTION SWITCHING ══════
-function showSection(name) {
+// ══════════════════════════════
+// SECTION SWITCHING
+// ══════════════════════════════
+function showSection(name, el) {
   document.querySelectorAll('.section').forEach(s => s.classList.remove('active'));
   document.querySelectorAll('.nav-item').forEach(n => n.classList.remove('active'));
   document.getElementById('sec-' + name).classList.add('active');
-  event.currentTarget.classList.add('active');
+  if (el) el.classList.add('active');
 }
 
-// ══════ LEADERBOARD EDITOR ══════
+// ══════════════════════════════
+// LEADERBOARD
+// ══════════════════════════════
 function renderLbEditor(data) {
-  const body = document.getElementById('lbEditorBody');
-  body.innerHTML = (data || []).map((row, i) => `
+  document.getElementById('lbEditorBody').innerHTML = (data||[]).map((row,i) => `
     <tr>
-      <td><input class="table-input" value="${row.rank}" placeholder="1" data-idx="${i}" data-field="rank" oninput="updateLbRow(this)"></td>
-      <td><input class="table-input" value="${row.name}" placeholder="Player Name" data-idx="${i}" data-field="name" oninput="updateLbRow(this)"></td>
-      <td><input class="table-input" type="number" value="${row.points}" placeholder="0" data-idx="${i}" data-field="points" oninput="updateLbRow(this)"></td>
+      <td><input class="table-input" value="${row.rank||''}" placeholder="1" id="lb-rank-${i}"></td>
+      <td><input class="table-input" value="${escHtml(row.name||'')}" placeholder="Player Name" id="lb-name-${i}"></td>
+      <td><input class="table-input" type="number" value="${row.points||0}" placeholder="0" id="lb-pts-${i}"></td>
       <td><button class="del-btn" onclick="delLbRow(${i})">🗑</button></td>
     </tr>`).join('');
 }
-
-let lbData = [];
 function getLbData() {
   const rows = document.querySelectorAll('#lbEditorBody tr');
-  return Array.from(rows).map(r => {
-    const inputs = r.querySelectorAll('.table-input');
-    return { rank: inputs[0].value, name: inputs[1].value, points: Number(inputs[2].value) };
-  });
+  return Array.from(rows).map((_,i) => ({
+    rank: document.getElementById('lb-rank-'+i)?.value||'',
+    name: document.getElementById('lb-name-'+i)?.value||'',
+    points: Number(document.getElementById('lb-pts-'+i)?.value||0)
+  }));
 }
-function addLbRow() {
-  const d = getLbData();
-  d.push({ rank: d.length + 1, name: '', points: 0 });
-  renderLbEditor(d);
-}
-function delLbRow(i) {
-  const d = getLbData();
-  d.splice(i, 1);
-  renderLbEditor(d);
-}
-function updateLbRow() { /* live, collected on save */ }
+function addLbRow() { const d=getLbData(); d.push({rank:d.length+1,name:'',points:0}); renderLbEditor(d); }
+function delLbRow(i) { const d=getLbData(); d.splice(i,1); renderLbEditor(d); }
 
-// ══════ CSV / EXCEL IMPORT ══════
-function handleDragOver(e, zoneId) {
-  e.preventDefault();
-  document.getElementById(zoneId).classList.add('drag-over');
-}
-function handleDragLeave(e, zoneId) {
-  document.getElementById(zoneId).classList.remove('drag-over');
-}
-function handleCsvDrop(e) {
-  e.preventDefault();
-  document.getElementById('csvDropzone').classList.remove('drag-over');
-  const file = e.dataTransfer.files[0];
-  if (file) processCSV(file);
-}
-function handleCsvFile(input) {
-  if (input.files[0]) processCSV(input.files[0]);
-}
-
+// CSV
+function handleDragOver(e,z) { e.preventDefault(); document.getElementById(z).classList.add('drag-over'); }
+function handleDragLeave(e,z) { document.getElementById(z).classList.remove('drag-over'); }
+function handleCsvDrop(e) { e.preventDefault(); document.getElementById('csvDropzone').classList.remove('drag-over'); if(e.dataTransfer.files[0]) processCSV(e.dataTransfer.files[0]); }
+function handleCsvFile(input) { if(input.files[0]) processCSV(input.files[0]); }
 function processCSV(file) {
   const reader = new FileReader();
   reader.onload = function(e) {
-    const text = e.target.result;
-    const lines = text.split(/\r?\n/).filter(l => l.trim());
-    const data = [];
-    // Skip header row if it contains non-numeric rank
+    const lines = e.target.result.split(/\r?\n/).filter(l=>l.trim());
     const start = isNaN(lines[0].split(',')[0]) ? 1 : 0;
-    for (let i = start; i < lines.length; i++) {
+    const data = [];
+    for (let i=start; i<lines.length; i++) {
       const cols = lines[i].split(',');
-      if (cols.length >= 3) {
-        data.push({
-          rank: cols[0].trim().replace(/"/g,''),
-          name: cols[1].trim().replace(/"/g,''),
-          points: Number(cols[2].trim().replace(/"/g,'')) || 0
-        });
-      }
+      if (cols.length>=3) data.push({rank:cols[0].trim().replace(/"/g,''),name:cols[1].trim().replace(/"/g,''),points:Number(cols[2].trim().replace(/"/g,''))||0});
     }
     renderLbEditor(data);
-    showToast('✅ Imported ' + data.length + ' players from CSV', 'success');
+    showToast('✅ Imported '+data.length+' players', 'success');
   };
   reader.readAsText(file);
 }
 
-// ══════ RULES — RICH TEXT EDITOR ══════
-function rteCmd(cmd, val) {
-  document.getElementById('rulesRTE').focus();
-  document.execCommand(cmd, false, val || null);
-}
-function rteKeydown(e) {
-  // Tab key inserts spaces instead of tabbing away
-  if (e.key === 'Tab') {
-    e.preventDefault();
-    document.execCommand('insertText', false, '    ');
-  }
-}
-function getRulesHTML() {
-  return document.getElementById('rulesRTE').innerHTML;
-}
-function setRulesHTML(html) {
-  document.getElementById('rulesRTE').innerHTML = html || '';
-}
-// For stats count — count block-level items (h3, li, p, div)
-function getRulesData() {
-  return getRulesHTML(); // stored as raw HTML string
-}
-function renderRulesEditor(data) {
-  // data is now HTML string (or legacy array)
-  if (Array.isArray(data)) {
-    // convert old format to HTML
-    setRulesHTML(data.map(r => '<p>' + r + '</p>').join(''));
-  } else {
-    setRulesHTML(data || '');
-  }
-}
+// ══════════════════════════════
+// RULES RTE
+// ══════════════════════════════
+function rteCmd(cmd,val) { document.getElementById('rulesRTE').focus(); document.execCommand(cmd,false,val||null); }
 
-// ══════ RANKING REWARDS EDITOR ══════
+// ══════════════════════════════
+// RANKING REWARDS
+// ══════════════════════════════
 function renderRankingRewardsEditor(data) {
-  document.getElementById('rankingRewardEditorBody').innerHTML = (data || []).map((r, i) => `
+  document.getElementById('rankingRewardEditorBody').innerHTML = (data||[]).map((r,i)=>`
     <tr>
-      <td><input class="table-input" value="${r.rank}" placeholder="#1" id="rr-rank-${i}"></td>
-      <td><input class="table-input" value="${r.rebate}" placeholder="₹5,000 Bonus" id="rr-rebate-${i}"></td>
+      <td><input class="table-input" value="${escHtml(r.rank||'')}" placeholder="#1" id="rr-rank-${i}"></td>
+      <td><input class="table-input" value="${escHtml(r.rebate||'')}" placeholder="₹5,000 Bonus" id="rr-rebate-${i}"></td>
       <td><button class="del-btn" onclick="delRankingReward(${i})">🗑</button></td>
     </tr>`).join('');
 }
 function getRankingRewards() {
   const rows = document.querySelectorAll('#rankingRewardEditorBody tr');
-  return Array.from(rows).map((r, i) => ({
-    rank: document.getElementById('rr-rank-'+i)?.value || '',
-    rebate: document.getElementById('rr-rebate-'+i)?.value || ''
-  }));
+  return Array.from(rows).map((_,i)=>({rank:document.getElementById('rr-rank-'+i)?.value||'',rebate:document.getElementById('rr-rebate-'+i)?.value||''}));
 }
-function addRankingReward() {
-  const d = getRankingRewards();
-  d.push({ rank: '', rebate: '' });
-  renderRankingRewardsEditor(d);
-}
-function delRankingReward(i) {
-  const d = getRankingRewards();
-  d.splice(i, 1);
-  renderRankingRewardsEditor(d);
+function addRankingReward() { const d=getRankingRewards(); d.push({rank:'',rebate:''}); renderRankingRewardsEditor(d); }
+function delRankingReward(i) { const d=getRankingRewards(); d.splice(i,1); renderRankingRewardsEditor(d); }
+
+// ══════════════════════════════
+// VIP REWARDS — Cloudinary URLs
+// ══════════════════════════════
+function renderVipRewardsEditor(data) {
+  document.getElementById('vipRewardEditorBody').innerHTML = (data||[]).map((r,i)=>{
+    const storedUrl = localStorage.getItem(KEY_VIP_PRE+i);
+    const imgHtml = storedUrl
+      ? `<img src="${storedUrl}" class="vip-frame-thumb" onclick="document.getElementById('vr-file-${i}').click()" title="Click to replace">`
+      : `<span style="font-size:24px;cursor:pointer;" onclick="document.getElementById('vr-file-${i}').click()" title="Click to upload">${r.frameEmoji||'🖼️'}</span>`;
+    return `
+    <tr>
+      <td><input class="table-input" value="${escHtml(r.rank||'')}" placeholder="#1" id="vr-rank-${i}"></td>
+      <td class="vip-frame-cell" id="vip-cell-${i}">
+        ${imgHtml}
+        <label class="vip-upload-btn">Upload<input type="file" accept="image/*" id="vr-file-${i}" style="display:none" onchange="handleVipFrame(this,${i})"></label>
+      </td>
+      <td><input class="table-input" value="${escHtml(r.frameEmoji||'🖼️')}" maxlength="4" id="vr-emoji-${i}" placeholder="🖼️"></td>
+      <td><input class="table-input" value="${escHtml(r.validity||'')}" placeholder="30 Days" id="vr-validity-${i}"></td>
+      <td><button class="del-btn" onclick="delVipReward(${i})">🗑</button></td>
+    </tr>`;
+  }).join('');
 }
 
-// ══════ VIP REWARDS EDITOR ══════
-function renderVipRewardsEditor(data) {
-  document.getElementById('vipRewardEditorBody').innerHTML = (data || []).map((r, i) => `
-    <tr>
-      <td><input class="table-input" value="${r.rank}" placeholder="#1" id="vr-rank-${i}"></td>
-      <td style="text-align:center;">
-        <label style="cursor:pointer;display:inline-flex;flex-direction:column;align-items:center;gap:4px;">
-          ${r.frameUrl ? `<img src="${r.frameUrl}" style="height:36px;border-radius:50%;border:2px solid var(--gold-light);" id="vr-img-${i}">` : `<span style="font-size:24px;" id="vr-img-${i}">${r.frameEmoji||'🖼️'}</span>`}
-          <span style="font-size:10px;color:var(--soft);">Upload PNG</span>
-          <input type="file" accept="image/*" style="display:none;" onchange="handleVipFrame(this, ${i})">
-        </label>
-        <input type="hidden" id="vr-frame-${i}" value="${r.frameUrl||''}">
-      </td>
-      <td><input class="table-input" value="${r.frameEmoji||'🖼️'}" maxlength="4" id="vr-emoji-${i}" placeholder="🖼️"></td>
-      <td><input class="table-input" value="${r.validity}" placeholder="30 Days" id="vr-validity-${i}"></td>
-      <td><button class="del-btn" onclick="delVipReward(${i})">🗑</button></td>
-    </tr>`).join('');
-}
 function getVipRewards() {
   const rows = document.querySelectorAll('#vipRewardEditorBody tr');
-  return Array.from(rows).map((r, i) => ({
-    rank: document.getElementById('vr-rank-'+i)?.value || '',
-    frameUrl: document.getElementById('vr-frame-'+i)?.value || '',
-    frameEmoji: document.getElementById('vr-emoji-'+i)?.value || '🖼️',
-    validity: document.getElementById('vr-validity-'+i)?.value || ''
+  return Array.from(rows).map((_,i)=>({
+    rank: document.getElementById('vr-rank-'+i)?.value||'',
+    frameEmoji: document.getElementById('vr-emoji-'+i)?.value||'🖼️',
+    validity: document.getElementById('vr-validity-'+i)?.value||'',
+    frameUrl: localStorage.getItem(KEY_VIP_PRE+i) || ''
   }));
 }
+
 function addVipReward() {
-  const d = getVipRewards();
-  d.push({ rank: '', frameUrl: '', frameEmoji: '🖼️', validity: '' });
+  const d=getVipRewards();
+  d.push({rank:'',frameEmoji:'🖼️',validity:'',frameUrl:''});
   renderVipRewardsEditor(d);
 }
+
 function delVipReward(i) {
-  const d = getVipRewards();
-  d.splice(i, 1);
+  const d=getVipRewards();
+  localStorage.removeItem(KEY_VIP_PRE+i);
+  for (let j=i; j<d.length-1; j++) {
+    const next = localStorage.getItem(KEY_VIP_PRE+(j+1));
+    if (next) localStorage.setItem(KEY_VIP_PRE+j, next);
+    else localStorage.removeItem(KEY_VIP_PRE+j);
+  }
+  localStorage.removeItem(KEY_VIP_PRE+(d.length-1));
+  d.splice(i,1);
   renderVipRewardsEditor(d);
 }
-function handleVipFrame(input, i) {
-  const file = input.files[0];
-  if (!file) return;
-  const reader = new FileReader();
-  reader.onload = function(e) {
-    document.getElementById('vr-frame-'+i).value = e.target.result;
-    const imgEl = document.getElementById('vr-img-'+i);
-    imgEl.outerHTML = `<img src="${e.target.result}" style="height:36px;border-radius:50%;border:2px solid var(--gold-light);" id="vr-img-${i}">`;
-    showToast('✅ VIP Frame uploaded', 'success');
-  };
-  reader.readAsDataURL(file);
-}
 
-// ══════ LOGO UPLOAD ══════
-let logoDataUrl = '';
-function handleLogoUpload(input) {
-  const file = input.files[0];
-  if (!file) return;
-  const reader = new FileReader();
-  reader.onload = function(e) {
-    logoDataUrl = e.target.result;
-    document.getElementById('logoPreviewImg').src = logoDataUrl;
-    document.getElementById('logoPreview').style.display = 'block';
-    showToast('✅ Logo uploaded', 'success');
-  };
-  reader.readAsDataURL(file);
-}
-
-// ══════ EXCLUSIVE UPLOAD ══════
-let exclusiveDataUrl = '';
-function handleExclusiveUpload(input) {
-  const file = input.files[0];
-  if (!file) return;
-  const reader = new FileReader();
-  reader.onload = function(e) {
-    exclusiveDataUrl = e.target.result;
-    document.getElementById('exclusivePreviewImg').src = exclusiveDataUrl;
-    document.getElementById('exclusivePreview').style.display = 'block';
-    showToast('✅ Exclusive frame uploaded', 'success');
-  };
-  reader.readAsDataURL(file);
-}
-
-// ══════ SAVE ══════
-function saveAll() {
-  const d = getData();
-  if (logoDataUrl) d.logoUrl = logoDataUrl;
-  if (exclusiveDataUrl) d.exclusiveFrameUrl = exclusiveDataUrl;
+async function handleVipFrame(input, i) {
+  if (!input.files[0]) return;
+  showToast('☁️ Uploading VIP frame...', 'success');
   try {
-    localStorage.setItem(KEY, JSON.stringify(d));
-    showToast('💾 Saved & Published successfully!', 'success');
-    updateStats(d);
-  } catch(e) {
-    showToast('❌ Error saving: ' + e.message, 'error');
+    const url = await uploadToCloudinary(input.files[0], 'vip-frames');
+    localStorage.setItem(KEY_VIP_PRE+i, url);
+    // Update cell
+    const cell = document.getElementById('vip-cell-'+i);
+    if (cell) {
+      cell.innerHTML = `<img src="${url}" class="vip-frame-thumb" onclick="document.getElementById('vr-file-${i}').click()" title="Click to replace"><label class="vip-upload-btn">Replace<input type="file" accept="image/*" id="vr-file-${i}" style="display:none" onchange="handleVipFrame(this,${i})"></label>`;
+    }
+    showToast('✅ VIP Frame uploaded to Cloudinary!', 'success');
+  } catch(err) {
+    showToast('❌ Upload failed: ' + err.message, 'error');
   }
 }
 
-// ══════ EXPORT ══════
+// ══════════════════════════════
+// LOGO UPLOAD — Cloudinary
+// ══════════════════════════════
+async function handleLogoUpload(input) {
+  if (!input.files[0]) return;
+  document.getElementById('logoProgress').style.display = 'block';
+  showToast('☁️ Uploading logo to Cloudinary...', 'success');
+  try {
+    const url = await uploadToCloudinary(input.files[0], 'logos');
+    localStorage.setItem(KEY_LOGO, url);
+    document.getElementById('logoPreviewImg').src = url;
+    document.getElementById('logoPreview').style.display = 'block';
+    document.getElementById('logoSizeLabel').textContent = '✅ Logo uploaded (Cloudinary)';
+    document.getElementById('logoProgress').style.display = 'none';
+    showToast('✅ Logo uploaded to Cloudinary!', 'success');
+  } catch(err) {
+    document.getElementById('logoProgress').style.display = 'none';
+    showToast('❌ Upload failed: ' + err.message, 'error');
+  }
+}
+
+// ══════════════════════════════
+// EXCLUSIVE UPLOAD — Cloudinary
+// ══════════════════════════════
+async function handleExclusiveUpload(input) {
+  if (!input.files[0]) return;
+  document.getElementById('exclusiveProgress').style.display = 'block';
+  showToast('☁️ Uploading exclusive frame...', 'success');
+  try {
+    const url = await uploadToCloudinary(input.files[0], 'exclusive');
+    localStorage.setItem(KEY_EXCL, url);
+    document.getElementById('exclusivePreviewImg').src = url;
+    document.getElementById('exclusivePreview').style.display = 'block';
+    document.getElementById('exclusiveSizeLabel').textContent = '✅ Frame uploaded (Cloudinary)';
+    document.getElementById('exclusiveProgress').style.display = 'none';
+    showToast('✅ Exclusive frame uploaded to Cloudinary!', 'success');
+  } catch(err) {
+    document.getElementById('exclusiveProgress').style.display = 'none';
+    showToast('❌ Upload failed: ' + err.message, 'error');
+  }
+}
+
+// ══════════════════════════════
+// SAVE ALL
+// ══════════════════════════════
+function saveAll() {
+  const logoUrl = localStorage.getItem(KEY_LOGO) || '';
+  const exclUrl = localStorage.getItem(KEY_EXCL) || '';
+
+  const d = {
+    eventName: document.getElementById('eventName').value,
+    eventSubtitle: document.getElementById('eventSubtitle').value,
+    eventStartDate: document.getElementById('eventStartDate').value,
+    eventEndDate: document.getElementById('eventEndDate').value,
+    logoEmoji: document.getElementById('logoEmoji').value || '🏆',
+    logoUrl: logoUrl,
+    leaderboard: getLbData(),
+    rules: document.getElementById('rulesRTE').innerHTML,
+    rankingRewards: getRankingRewards(),
+    vipRewards: getVipRewards(),
+    exclusiveFrameEmoji: document.getElementById('exclusiveEmoji').value || '💎',
+    exclusiveFrameUrl: exclUrl,
+    exclusiveDesc: document.getElementById('exclusiveDesc').value
+  };
+  try {
+    saveData(d);
+    showToast('💾 Saved & Published!', 'success');
+    updateStats(d);
+  } catch(err) {
+    showToast('❌ Save failed: ' + err.message, 'error');
+  }
+}
+
+// ══════════════════════════════
+// EXPORT JSON — Cloudinary URLs included
+// ══════════════════════════════
 function exportJSON() {
-  const d = getData();
-  const blob = new Blob([JSON.stringify(d, null, 2)], { type: 'application/json' });
+  const d = loadData();
+  const logoUrl = localStorage.getItem(KEY_LOGO) || '';
+  const exclUrl = localStorage.getItem(KEY_EXCL) || '';
+
+  const exportObj = Object.assign({}, d, {
+    logoUrl: logoUrl,
+    exclusiveFrameUrl: exclUrl,
+    vipRewards: (d.vipRewards||[]).map((r,i) => Object.assign({}, r, {
+      frameUrl: localStorage.getItem(KEY_VIP_PRE+i) || r.frameUrl || ''
+    }))
+  });
+
+  const blob = new Blob([JSON.stringify(exportObj, null, 2)], {type:'application/json'});
   const a = document.createElement('a');
   a.href = URL.createObjectURL(blob);
   a.download = 'recharge-arena-data.json';
   a.click();
-  showToast('⬇ JSON exported', 'success');
+  showToast('⬇ JSON exported with Cloudinary URLs', 'success');
 }
 
-// ══════ RESET ══════
+// ══════════════════════════════
+// RESET
+// ══════════════════════════════
 function resetData() {
-  if (!confirm('Reset ALL data to defaults? This cannot be undone.')) return;
-  localStorage.removeItem(KEY);
-  logoDataUrl = '';
-  exclusiveDataUrl = '';
+  if (!confirm('Reset ALL data? Cloudinary images will remain on cloud but local links will be removed.')) return;
+  Object.keys(localStorage).filter(k=>k.startsWith('rca_')).forEach(k=>localStorage.removeItem(k));
   init();
-  showToast('🔄 Data reset to defaults', 'success');
+  showToast('🔄 Reset done', 'success');
 }
 
-// ══════ PREVIEW ══════
-function previewPage() {
-  showToast('🔄 Save first, then open event-page.html in browser', 'success');
-}
-
-// ══════ TOAST ══════
+// ══════════════════════════════
+// TOAST
+// ══════════════════════════════
 let toastTimer;
 function showToast(msg, type='success') {
   const t = document.getElementById('toast');
   t.textContent = msg;
   t.className = `toast ${type} show`;
   clearTimeout(toastTimer);
-  toastTimer = setTimeout(() => { t.classList.remove('show'); }, 3000);
+  toastTimer = setTimeout(()=>t.classList.remove('show'), 3200);
 }
 
-// ══════ INIT ══════
+// ══════════════════════════════
+// UTIL
+// ══════════════════════════════
+function escHtml(s) { return String(s).replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;').replace(/"/g,'&quot;'); }
+
 init();
 </script>
 </body>
