@@ -443,6 +443,78 @@
     .main { margin-left: 0; }
     .stats-bar { grid-template-columns: 1fr; }
   }
+
+  /* ── RICH TEXT EDITOR ── */
+  .rte-toolbar {
+    display: flex;
+    align-items: center;
+    gap: 4px;
+    background: var(--ivory);
+    border: 1.5px solid var(--border);
+    border-radius: 10px 10px 0 0;
+    padding: 8px 10px;
+    flex-wrap: wrap;
+  }
+  .rte-btn {
+    padding: 5px 11px;
+    border: 1.5px solid var(--border);
+    border-radius: 7px;
+    background: var(--white);
+    font-family: 'DM Sans', sans-serif;
+    font-size: 13px;
+    color: var(--dark);
+    cursor: pointer;
+    transition: all 0.15s;
+    line-height: 1;
+    min-width: 34px;
+    text-align: center;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: 3px;
+  }
+  .rte-btn:hover { background: var(--gold-pale); border-color: var(--gold); color: var(--gold); }
+  .rte-btn:active { transform: scale(0.95); }
+  .rte-btn b { font-weight: 800; }
+  .rte-btn.rte-italic i { font-style: italic; font-family: Georgia, serif; }
+  .rte-sep {
+    width: 1px;
+    height: 22px;
+    background: var(--border);
+    margin: 0 4px;
+  }
+  .rte-editor {
+    min-height: 220px;
+    border: 1.5px solid var(--border);
+    border-top: none;
+    border-radius: 0 0 10px 10px;
+    padding: 14px 16px;
+    font-family: 'DM Sans', sans-serif;
+    font-size: 14px;
+    line-height: 1.7;
+    color: var(--dark);
+    background: var(--white);
+    outline: none;
+    transition: border-color 0.18s;
+  }
+  .rte-editor:focus { border-color: var(--gold); }
+  .rte-editor h3 {
+    font-family: 'Playfair Display', serif;
+    font-size: 17px;
+    font-weight: 700;
+    color: var(--dark);
+    margin: 12px 0 4px;
+    border-bottom: 1.5px solid var(--border);
+    padding-bottom: 4px;
+  }
+  .rte-editor h3:first-child { margin-top: 0; }
+  .rte-editor b, .rte-editor strong { font-weight: 700; color: var(--dark); }
+  .rte-editor i, .rte-editor em { font-style: italic; color: var(--mid); }
+  .rte-editor ol { padding-left: 22px; margin: 6px 0; }
+  .rte-editor ul { padding-left: 22px; margin: 6px 0; list-style-type: disc; }
+  .rte-editor li { margin: 3px 0; }
+  .rte-editor p { margin: 4px 0; }
+  .rte-hint { font-size: 11.5px; color: var(--soft); margin-top: 8px; padding-left: 2px; }
 </style>
 </head>
 <body>
@@ -557,14 +629,14 @@
 
           <div class="form-grid-2">
             <div class="form-row">
+              <label>Event Start Date &amp; Time</label>
+              <input type="datetime-local" class="form-input" id="eventStartDate">
+              <div class="form-hint">Shown in date badge as "From" date</div>
+            </div>
+            <div class="form-row">
               <label>Event End Date &amp; Time</label>
               <input type="datetime-local" class="form-input" id="eventEndDate">
               <div class="form-hint">Countdown timer targets this date</div>
-            </div>
-            <div class="form-row">
-              <label>Display Date Label</label>
-              <input type="text" class="form-input" id="eventDateLabel" placeholder="e.g. 31 Dec 2025, 11:59 PM">
-              <div class="form-hint">Shown as badge on event page</div>
             </div>
           </div>
         </div>
@@ -614,9 +686,20 @@
       <div class="section" id="sec-rules">
         <div class="card">
           <div class="card-title">📋 Event Rules</div>
-          <p style="font-size:13px;color:var(--soft);margin-bottom:16px;">Each rule appears as a numbered item on the event page.</p>
-          <div id="rulesEditorList"></div>
-          <button class="add-row-btn" onclick="addRule()">+ Add Rule</button>
+          <p style="font-size:13px;color:var(--soft);margin-bottom:14px;">Use the toolbar to format — Heading, Bold, Italic, Numbered List, Bullet List.</p>
+          <div class="rte-toolbar">
+            <button class="rte-btn" title="Heading" onclick="rteCmd('formatBlock','H3')"><b>H</b></button>
+            <div class="rte-sep"></div>
+            <button class="rte-btn" title="Bold" onclick="rteCmd('bold')"><b>B</b></button>
+            <button class="rte-btn rte-italic" title="Italic" onclick="rteCmd('italic')"><i>I</i></button>
+            <div class="rte-sep"></div>
+            <button class="rte-btn" title="Numbered List" onclick="rteCmd('insertOrderedList')">1. —</button>
+            <button class="rte-btn" title="Bullet List" onclick="rteCmd('insertUnorderedList')">• —</button>
+            <div class="rte-sep"></div>
+            <button class="rte-btn" title="Clear Format" onclick="rteCmd('removeFormat')">✕ Clear</button>
+          </div>
+          <div class="rte-editor" id="rulesRTE" contenteditable="true"></div>
+          <div class="rte-hint">💡 Tip: Select text then click toolbar button to format. Press Enter for new line.</div>
         </div>
       </div>
 
@@ -709,6 +792,7 @@ const KEY = 'rechargeArenaData';
 const defaults = {
   eventName: "Recharge Arena",
   eventSubtitle: "Users earn Event Points by purchasing coins during the event period.",
+  eventStartDate: new Date().toISOString().slice(0,16),
   eventEndDate: new Date(Date.now() + 5 * 24 * 60 * 60 * 1000).toISOString().slice(0,16),
   logoEmoji: "🏆",
   logoUrl: "",
@@ -734,6 +818,7 @@ function getData() {
   // Event name / subtitle
   d.eventName = document.getElementById('eventName').value || d.eventName;
   d.eventSubtitle = document.getElementById('eventSubtitle').value || d.eventSubtitle;
+  d.eventStartDate = document.getElementById('eventStartDate').value ? new Date(document.getElementById('eventStartDate').value).toISOString() : d.eventStartDate;
   d.eventEndDate = document.getElementById('eventEndDate').value ? new Date(document.getElementById('eventEndDate').value).toISOString() : d.eventEndDate;
   d.logoEmoji = document.getElementById('logoEmoji').value || '🏆';
   d.exclusiveEmoji = document.getElementById('exclusiveEmoji').value || '💎';
@@ -741,8 +826,8 @@ function getData() {
 
   // Leaderboard
   d.leaderboard = getLbData();
-  // Rules
-  d.rules = getRulesData();
+  // Rules (stored as HTML string)
+  d.rules = getRulesHTML();
   // Ranking rewards
   d.rankingRewards = getRankingRewards();
   // VIP rewards
@@ -764,6 +849,10 @@ function init() {
   document.getElementById('exclusiveEmoji').value = d.exclusiveFrameEmoji || '💎';
   document.getElementById('exclusiveDesc').value = d.exclusiveDesc || '';
 
+  if (d.eventStartDate) {
+    const ds = new Date(d.eventStartDate);
+    document.getElementById('eventStartDate').value = ds.toISOString().slice(0,16);
+  }
   if (d.eventEndDate) {
     const dt = new Date(d.eventEndDate);
     document.getElementById('eventEndDate').value = dt.toISOString().slice(0,16);
@@ -779,7 +868,7 @@ function init() {
   }
 
   renderLbEditor(d.leaderboard);
-  renderRulesEditor(d.rules);
+  renderRulesEditor(d.rules || '');
   renderRankingRewardsEditor(d.rankingRewards);
   renderVipRewardsEditor(d.vipRewards);
   updateStats(d);
@@ -788,7 +877,11 @@ function init() {
 // ══════ STATS ══════
 function updateStats(d) {
   document.getElementById('statPlayers').textContent = (d.leaderboard || []).length;
-  document.getElementById('statRules').textContent = (d.rules || []).length;
+  // rules is now HTML string — count headings + list items + paragraphs
+  const rulesTmp = document.createElement('div');
+  rulesTmp.innerHTML = typeof d.rules === 'string' ? d.rules : (d.rules||[]).join('');
+  const ruleCount = rulesTmp.querySelectorAll('h3,li,p,div').length;
+  document.getElementById('statRules').textContent = ruleCount;
   const end = new Date(d.eventEndDate);
   const now = new Date();
   if (end > now) {
@@ -883,29 +976,36 @@ function processCSV(file) {
   reader.readAsText(file);
 }
 
-// ══════ RULES EDITOR ══════
-function renderRulesEditor(rules) {
-  const list = document.getElementById('rulesEditorList');
-  list.innerHTML = (rules || []).map((r, i) => `
-    <div class="rule-editor-item" id="rule-item-${i}">
-      <span class="rule-num-badge">${i+1}</span>
-      <textarea class="form-textarea" style="min-height:54px;" id="rule-text-${i}">${r}</textarea>
-      <button class="del-btn" style="margin-top:6px;" onclick="delRule(${i})">🗑</button>
-    </div>`).join('');
+// ══════ RULES — RICH TEXT EDITOR ══════
+function rteCmd(cmd, val) {
+  document.getElementById('rulesRTE').focus();
+  document.execCommand(cmd, false, val || null);
 }
+function rteKeydown(e) {
+  // Tab key inserts spaces instead of tabbing away
+  if (e.key === 'Tab') {
+    e.preventDefault();
+    document.execCommand('insertText', false, '    ');
+  }
+}
+function getRulesHTML() {
+  return document.getElementById('rulesRTE').innerHTML;
+}
+function setRulesHTML(html) {
+  document.getElementById('rulesRTE').innerHTML = html || '';
+}
+// For stats count — count block-level items (h3, li, p, div)
 function getRulesData() {
-  const items = document.querySelectorAll('[id^="rule-text-"]');
-  return Array.from(items).map(t => t.value).filter(v => v.trim());
+  return getRulesHTML(); // stored as raw HTML string
 }
-function addRule() {
-  const d = getRulesData();
-  d.push('New rule...');
-  renderRulesEditor(d);
-}
-function delRule(i) {
-  const d = getRulesData();
-  d.splice(i, 1);
-  renderRulesEditor(d);
+function renderRulesEditor(data) {
+  // data is now HTML string (or legacy array)
+  if (Array.isArray(data)) {
+    // convert old format to HTML
+    setRulesHTML(data.map(r => '<p>' + r + '</p>').join(''));
+  } else {
+    setRulesHTML(data || '');
+  }
 }
 
 // ══════ RANKING REWARDS EDITOR ══════
