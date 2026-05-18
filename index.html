@@ -112,16 +112,26 @@
   .event-date-badge {
     display: inline-flex;
     align-items: center;
-    gap: 6px;
+    gap: 8px;
     background: var(--white);
     border: 1.5px solid var(--border);
-    border-radius: 30px;
-    padding: 6px 14px;
-    font-size: 12px;
+    border-radius: 14px;
+    padding: 8px 16px;
+    font-size: 11px;
     font-weight: 500;
     color: var(--mid);
     box-shadow: 0 2px 8px var(--shadow);
     font-family: 'Space Mono', monospace;
+    flex-wrap: wrap;
+    justify-content: center;
+    max-width: 340px;
+    line-height: 1.5;
+    text-align: center;
+  }
+  .badge-arrow {
+    color: var(--gold);
+    font-size: 13px;
+    font-weight: 700;
   }
   .event-date-badge .dot {
     width: 7px;
@@ -593,6 +603,25 @@
     color: var(--soft);
     letter-spacing: 0.5px;
   }
+
+  /* ── RTE Content (Rules Modal) ── */
+  .rte-content { font-size: 14px; line-height: 1.75; color: var(--mid); }
+  .rte-content h3 {
+    font-family: 'Playfair Display', serif;
+    font-size: 16px;
+    font-weight: 700;
+    color: var(--dark);
+    margin: 16px 0 6px;
+    padding-bottom: 5px;
+    border-bottom: 1.5px solid var(--border);
+  }
+  .rte-content h3:first-child { margin-top: 0; }
+  .rte-content ol { padding-left: 20px; margin: 6px 0; }
+  .rte-content ul { padding-left: 20px; margin: 6px 0; list-style-type: disc; }
+  .rte-content li { margin: 4px 0; }
+  .rte-content p { margin: 4px 0; }
+  .rte-content b, .rte-content strong { font-weight: 700; color: var(--dark); }
+  .rte-content i, .rte-content em { font-style: italic; }
 </style>
 </head>
 <body>
@@ -746,6 +775,7 @@ const EVENT_DATA_KEY = 'rechargeArenaData';
 const defaultData = {
   eventName: "Recharge Arena",
   eventSubtitle: "Users earn Event Points by purchasing coins during the event period.",
+  eventStartDate: new Date().toISOString(),
   eventEndDate: new Date(Date.now() + 5 * 24 * 60 * 60 * 1000).toISOString(),
   logoEmoji: "🏆",
   logoUrl: "",
@@ -774,11 +804,18 @@ function renderAll() {
   document.getElementById('eventSubtitleDisplay').textContent = d.eventSubtitle || '';
 
   // Date display
-  if (d.eventEndDate) {
-    const dt = new Date(d.eventEndDate);
-    document.getElementById('eventDateDisplay').textContent =
-      'Ends: ' + dt.toLocaleDateString('en-IN', { day:'numeric', month:'short', year:'numeric' })
-      + ' ' + dt.toLocaleTimeString('en-IN', { hour:'2-digit', minute:'2-digit' });
+  const fmt = dt => dt.toLocaleDateString('en-IN', { day:'numeric', month:'short', year:'numeric' })
+    + ' ' + dt.toLocaleTimeString('en-IN', { hour:'2-digit', minute:'2-digit' });
+  const el = document.getElementById('eventDateDisplay');
+  if (d.eventStartDate && d.eventEndDate) {
+    const start = new Date(d.eventStartDate);
+    const end = new Date(d.eventEndDate);
+    el.innerHTML = '<span>' + fmt(start) + '</span>'
+      + '<span class="badge-arrow">→</span>'
+      + '<span>' + fmt(end) + '</span>';
+  } else if (d.eventEndDate) {
+    const end = new Date(d.eventEndDate);
+    el.textContent = fmt(end);
   }
 
   // Logo
@@ -830,11 +867,19 @@ function renderLeaderboard(data) {
 
 function renderRules(rules) {
   const body = document.getElementById('rulesBody');
-  body.innerHTML = rules.map((r, i) => `
-    <div class="rule-item">
-      <span class="rule-num">${i+1}</span>
-      <p class="rule-text">${r}</p>
-    </div>`).join('');
+  // rules is now HTML string from RTE
+  if (typeof rules === 'string') {
+    body.innerHTML = '<div class="rte-content">' + rules + '</div>';
+  } else if (Array.isArray(rules) && rules.length) {
+    // legacy plain-text array
+    body.innerHTML = rules.map((r, i) => `
+      <div class="rule-item">
+        <span class="rule-num">${i+1}</span>
+        <p class="rule-text">${r}</p>
+      </div>`).join('');
+  } else {
+    body.innerHTML = '<p style="color:var(--soft);font-size:14px;">No rules added yet.</p>';
+  }
 }
 
 function renderRankingRewards(data) {
