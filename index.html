@@ -263,12 +263,44 @@
   .reward-table td:last-child { text-align: right; color: var(--mid); font-size: 13px; }
   .reward-table tr:last-child td { border-bottom: none; }
 
-  .vip-frame-img { width: 38px; height: 38px; border-radius: 50%; object-fit: cover; border: 2px solid var(--gold-light); display: block; margin: 0 auto; }
-  .frame-placeholder { display: inline-flex; align-items: center; justify-content: center; width: 38px; height: 38px; border-radius: 50%; background: var(--ivory); border: 1.5px dashed var(--border); font-size: 16px; }
+  /* ── VIP FRAME — No circle, bigger image ── */
+  .vip-frame-img {
+    width: 56px;
+    height: 56px;
+    object-fit: contain;
+    display: block;
+    margin: 0 auto;
+    border-radius: 8px;
+  }
+  .frame-placeholder {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    width: 56px;
+    height: 56px;
+    background: var(--ivory);
+    border-radius: 8px;
+    font-size: 22px;
+  }
+
+  /* VIP table frame column centered */
+  .reward-table td.frame-col { text-align: center; padding: 8px 10px; }
 
   .exclusive-card { background: linear-gradient(135deg, #FFFBF0 0%, #FDF3DC 100%); border: 1.5px solid var(--border); border-radius: 16px; padding: 24px 20px; text-align: center; }
-  .exclusive-frame-wrap { width: 110px; height: 110px; border-radius: 50%; margin: 0 auto 16px; border: 3px solid var(--gold-light); background: var(--ivory); display: flex; align-items: center; justify-content: center; font-size: 52px; box-shadow: 0 4px 20px var(--shadow); overflow: hidden; }
-  .exclusive-frame-wrap img { width: 100%; height: 100%; object-fit: cover; }
+  .exclusive-frame-wrap {
+    width: 120px;
+    height: 120px;
+    border-radius: 16px;
+    margin: 0 auto 16px;
+    background: var(--ivory);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 52px;
+    box-shadow: 0 4px 20px var(--shadow);
+    overflow: hidden;
+  }
+  .exclusive-frame-wrap img { width: 100%; height: 100%; object-fit: contain; }
   .exclusive-desc { font-size: 14px; line-height: 1.6; color: var(--mid); }
   .exclusive-desc strong { color: var(--dark); font-weight: 600; }
 
@@ -276,9 +308,15 @@
   .modal-sheet::-webkit-scrollbar-thumb { background: var(--border); border-radius: 2px; }
 
   .page-footer { text-align: center; padding: 16px; font-size: 11px; color: var(--soft); letter-spacing: 0.5px; }
+
+  /* Loading state */
+  .loading-bar { height: 3px; background: linear-gradient(90deg, var(--gold), var(--gold-light), var(--gold)); background-size: 200% 100%; animation: loadingAnim 1.2s ease infinite; }
+  @keyframes loadingAnim { 0%{background-position:0%} 100%{background-position:200%} }
 </style>
 </head>
 <body>
+
+<div class="loading-bar" id="loadingBar"></div>
 
 <!-- HEADER -->
 <div class="header">
@@ -286,7 +324,7 @@
     <div class="logo-placeholder" id="logoDisplay">🏆</div>
   </div>
   <h1 class="event-name"><span id="eventNameText">Recharge Arena</span></h1>
-  <p class="event-subtitle" id="eventSubtitleDisplay">Users earn Event Points by purchasing coins during the event period.</p>
+  <p class="event-subtitle" id="eventSubtitleDisplay">Loading...</p>
   <div class="event-date-badge">
     <span class="dot"></span>
     <span id="eventDateDisplay">Loading event date...</span>
@@ -297,10 +335,10 @@
 <div class="countdown-section">
   <p class="countdown-label">⏳ Event Ends In</p>
   <div class="countdown-grid" id="countdownGrid">
-    <div class="countdown-box"><span class="countdown-num" id="cd-days">00</span><span class="countdown-unit">Days</span></div>
-    <div class="countdown-box"><span class="countdown-num" id="cd-hours">00</span><span class="countdown-unit">Hours</span></div>
-    <div class="countdown-box"><span class="countdown-num" id="cd-mins">00</span><span class="countdown-unit">Mins</span></div>
-    <div class="countdown-box"><span class="countdown-num" id="cd-secs">00</span><span class="countdown-unit">Secs</span></div>
+    <div class="countdown-box"><span class="countdown-num" id="cd-days">--</span><span class="countdown-unit">Days</span></div>
+    <div class="countdown-box"><span class="countdown-num" id="cd-hours">--</span><span class="countdown-unit">Hours</span></div>
+    <div class="countdown-box"><span class="countdown-num" id="cd-mins">--</span><span class="countdown-unit">Mins</span></div>
+    <div class="countdown-box"><span class="countdown-num" id="cd-secs">--</span><span class="countdown-unit">Secs</span></div>
   </div>
   <div class="event-ended-msg" id="eventEndedMsg">🏁 Event Has Ended</div>
 </div>
@@ -318,7 +356,7 @@
   <div class="lb-header">
     <span style="font-size:18px;">🏅</span>
     <span class="lb-header-title">Rankings</span>
-    <span class="lb-count" id="lbCount">0 Players</span>
+    <span class="lb-count" id="lbCount">Loading...</span>
   </div>
   <div class="lb-cols">
     <span class="lb-col-label">Rank</span>
@@ -326,7 +364,7 @@
     <span class="lb-col-label" style="text-align:right;">Points</span>
   </div>
   <div class="lb-body" id="leaderboardBody">
-    <div class="lb-empty"><span class="lb-empty-icon">📊</span>No rankings yet.</div>
+    <div class="lb-empty"><span class="lb-empty-icon">⏳</span>Loading rankings...</div>
   </div>
 </div>
 
@@ -380,15 +418,15 @@
 
 <script>
 // ══════════════════════════════════════════
-// STORAGE KEYS — Admin panel ke saath match karna ZAROORI
-// Admin panel inhi keys mein save karta hai:
+// DATA SOURCE — JSON file se fetch karo
+// Ye file admin panel ke saath SAME folder mein honi chahiye
+// Admin panel "Save & Publish" pe is file ko overwrite kare
 // ══════════════════════════════════════════
-const KEY_DATA    = 'rca_data';       // main JSON data
-const KEY_LOGO    = 'rca_logo_url';   // Cloudinary logo URL
-const KEY_EXCL    = 'rca_excl_url';   // Cloudinary exclusive frame URL
-const KEY_VIP_PRE = 'rca_vip_url_';  // Cloudinary VIP frame URLs (rca_vip_url_0, rca_vip_url_1...)
+const DATA_JSON_PATH = 'recharge-arena-data.json';
 
-// Default fallback data
+// Cache bust har 30 seconds pe (fresh data milta rahe)
+let cacheKey = Date.now();
+
 const defaultData = {
   eventName: "Recharge Arena",
   eventSubtitle: "Users earn Event Points by purchasing coins during the event period.",
@@ -402,48 +440,49 @@ const defaultData = {
   vipRewards: [],
   exclusiveFrameUrl: "",
   exclusiveFrameEmoji: "💎",
-  exclusiveDesc: "This exclusive diamond frame is awarded to the <strong>Top 3 ranked players</strong> who maintain their position until the event ends."
+  exclusiveDesc: "This exclusive diamond frame is awarded to the Top 3 ranked players who maintain their position until the event ends."
 };
 
 // ══════════════════════════════════════════
-// DATA LOADER — admin panel keys se data uthao
+// FETCH JSON DATA (works across all browsers/devices)
 // ══════════════════════════════════════════
-function loadAllData() {
-  let base = Object.assign({}, defaultData);
-
-  // 1. Main JSON (text data)
+async function fetchData() {
   try {
-    const raw = localStorage.getItem(KEY_DATA);
-    if (raw) {
-      const parsed = JSON.parse(raw);
-      base = Object.assign(base, parsed);
-    }
-  } catch(e) { console.warn('rca_data parse error', e); }
-
-  // 2. Logo URL (Cloudinary)
-  const logoUrl = localStorage.getItem(KEY_LOGO);
-  if (logoUrl) base.logoUrl = logoUrl;
-
-  // 3. Exclusive frame URL (Cloudinary)
-  const exclUrl = localStorage.getItem(KEY_EXCL);
-  if (exclUrl) base.exclusiveFrameUrl = exclUrl;
-
-  // 4. VIP frame URLs (Cloudinary) — inject into vipRewards array
-  if (base.vipRewards && base.vipRewards.length) {
-    base.vipRewards = base.vipRewards.map((r, i) => {
-      const vipUrl = localStorage.getItem(KEY_VIP_PRE + i);
-      return Object.assign({}, r, { frameUrl: vipUrl || r.frameUrl || '' });
+    const res = await fetch(DATA_JSON_PATH + '?t=' + Date.now(), {
+      cache: 'no-store'
     });
+    if (!res.ok) throw new Error('File not found');
+    const data = await res.json();
+    return Object.assign({}, defaultData, data);
+  } catch(e) {
+    console.warn('JSON fetch failed, falling back to localStorage:', e.message);
+    // Fallback: localStorage se try karo (same browser ke liye)
+    try {
+      const raw = localStorage.getItem('rca_data');
+      if (raw) {
+        const parsed = JSON.parse(raw);
+        const logoUrl = localStorage.getItem('rca_logo_url') || '';
+        const exclUrl = localStorage.getItem('rca_excl_url') || '';
+        if (parsed.vipRewards) {
+          parsed.vipRewards = parsed.vipRewards.map((r, i) => {
+            const vipUrl = localStorage.getItem('rca_vip_url_' + i);
+            return Object.assign({}, r, { frameUrl: vipUrl || r.frameUrl || '' });
+          });
+        }
+        return Object.assign({}, defaultData, parsed, { logoUrl: logoUrl || parsed.logoUrl, exclusiveFrameUrl: exclUrl || parsed.exclusiveFrameUrl });
+      }
+    } catch(e2) {}
+    return Object.assign({}, defaultData);
   }
-
-  return base;
 }
 
 // ══════════════════════════════════════════
 // RENDER ALL
 // ══════════════════════════════════════════
-function renderAll() {
-  const d = loadAllData();
+async function renderAll() {
+  const d = await fetchData();
+
+  document.getElementById('loadingBar').style.display = 'none';
 
   // Event name & subtitle
   document.getElementById('eventNameText').textContent = d.eventName || 'Recharge Arena';
@@ -511,9 +550,28 @@ function renderLeaderboard(data) {
 function renderRules(rules) {
   const body = document.getElementById('rulesBody');
   if (typeof rules === 'string' && rules.trim()) {
-    body.innerHTML = '<div class="rte-content">' + rules + '</div>';
+    // Lark/rich HTML se plain text extract karo
+    const tmp = document.createElement('div');
+    tmp.innerHTML = rules;
+    // Agar sirf ace-line divs hain (Lark format), plain text banao
+    const aceLines = tmp.querySelectorAll('.ace-line');
+    if (aceLines.length > 0) {
+      let html = '<div class="rte-content">';
+      aceLines.forEach(line => {
+        const text = line.textContent.trim();
+        if (!text) { html += '<br>'; return; }
+        if (text.startsWith('🎯') || text === 'Point Conversion') {
+          html += '<h3>' + escHtml(text) + '</h3>';
+        } else {
+          html += '<p>' + escHtml(text) + '</p>';
+        }
+      });
+      html += '</div>';
+      body.innerHTML = html;
+    } else {
+      body.innerHTML = '<div class="rte-content">' + rules + '</div>';
+    }
   } else if (Array.isArray(rules) && rules.length) {
-    // Legacy support
     body.innerHTML = rules.map((r, i) =>
       '<div style="display:flex;gap:12px;margin-bottom:16px;">'
       + '<span style="flex-shrink:0;width:26px;height:26px;border-radius:8px;background:linear-gradient(135deg,var(--gold),var(--gold-light));display:flex;align-items:center;justify-content:center;font-size:11px;font-weight:700;color:#fff;font-family:Space Mono,monospace;">' + (i+1) + '</span>'
@@ -536,7 +594,7 @@ function renderRankingRewards(data) {
 }
 
 // ══════════════════════════════════════════
-// VIP REWARDS
+// VIP REWARDS — No circle, bigger frame
 // ══════════════════════════════════════════
 function renderVipRewards(data) {
   document.getElementById('vipRewardBody').innerHTML = data.map(r => {
@@ -545,7 +603,7 @@ function renderVipRewards(data) {
       : '<span class="frame-placeholder">' + (r.frameEmoji || '🖼️') + '</span>';
     return '<tr>'
       + '<td>' + escHtml(r.rank) + '</td>'
-      + '<td style="text-align:center;">' + frame + '</td>'
+      + '<td class="frame-col">' + frame + '</td>'
       + '<td>' + escHtml(r.validity) + '</td>'
       + '</tr>';
   }).join('') || '<tr><td colspan="3" style="text-align:center;color:var(--soft);padding:20px;">No VIP rewards added yet.</td></tr>';
@@ -588,6 +646,13 @@ function startCountdown(endDateStr) {
 }
 
 // ══════════════════════════════════════════
+// AUTO REFRESH — Har 30 second pe fresh data
+// ══════════════════════════════════════════
+setInterval(() => {
+  renderAll();
+}, 30000);
+
+// ══════════════════════════════════════════
 // MODAL CONTROLS
 // ══════════════════════════════════════════
 function openModal(id)  { document.getElementById(id).classList.add('active'); document.body.style.overflow = 'hidden'; }
@@ -601,16 +666,6 @@ function switchTab(tab) {
   document.querySelectorAll('.r-tab')[idx[tab]].classList.add('active');
   document.getElementById('tab-' + tab).classList.add('active');
 }
-
-// ══════════════════════════════════════════
-// AUTO-REFRESH — jab bhi admin panel save kare
-// ══════════════════════════════════════════
-window.addEventListener('storage', function(e) {
-  // Koi bhi rca_ key change ho — re-render karo
-  if (e.key && e.key.startsWith('rca_')) {
-    renderAll();
-  }
-});
 
 // ══════════════════════════════════════════
 // UTIL
