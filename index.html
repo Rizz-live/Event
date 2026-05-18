@@ -1,0 +1,930 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0">
+<title>Recharge Arena – Event</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@700;900&family=DM+Sans:wght@300;400;500;600&family=Space+Mono:wght@400;700&display=swap" rel="stylesheet">
+
+<style>
+  :root {
+    --gold: #C9972B;
+    --gold-light: #F0C96A;
+    --gold-pale: #FDF3DC;
+    --cream: #FEFBF4;
+    --ivory: #F7F2E8;
+    --dark: #1A1208;
+    --mid: #5C4A1E;
+    --soft: #9E8A5C;
+    --white: #FFFFFF;
+    --border: #E8DEC8;
+    --shadow: rgba(201,151,43,0.15);
+    --red: #C0392B;
+    --green: #1E7A4A;
+    --blue: #1A4F8C;
+    --rank1: #C9972B;
+    --rank2: #8C9BA8;
+    --rank3: #A0714F;
+  }
+
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+
+  body {
+    font-family: 'DM Sans', sans-serif;
+    background: var(--cream);
+    color: var(--dark);
+    min-height: 100vh;
+    overflow-x: hidden;
+  }
+
+  /* ── HEADER ── */
+  .header {
+    background: linear-gradient(160deg, #FFFDF7 0%, #FDF3DC 60%, #F5E8C0 100%);
+    padding: 28px 20px 24px;
+    text-align: center;
+    position: relative;
+    border-bottom: 1.5px solid var(--border);
+    overflow: hidden;
+  }
+  .header::before {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background: radial-gradient(ellipse at 50% 0%, rgba(201,151,43,0.12) 0%, transparent 70%);
+    pointer-events: none;
+  }
+
+  .logo-wrap {
+    position: relative;
+    display: inline-block;
+    margin-bottom: 14px;
+  }
+  .logo-wrap img {
+    width: 72px;
+    height: 72px;
+    border-radius: 18px;
+    object-fit: cover;
+    border: 2.5px solid var(--gold);
+    box-shadow: 0 4px 20px var(--shadow);
+  }
+  .logo-placeholder {
+    width: 72px;
+    height: 72px;
+    border-radius: 18px;
+    background: linear-gradient(135deg, var(--gold) 0%, var(--gold-light) 100%);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 28px;
+    box-shadow: 0 4px 20px var(--shadow);
+    border: 2.5px solid var(--gold-light);
+    margin: 0 auto;
+  }
+
+  .event-name {
+    font-family: 'Playfair Display', serif;
+    font-size: 28px;
+    font-weight: 900;
+    color: var(--dark);
+    letter-spacing: -0.3px;
+    line-height: 1.1;
+    margin-bottom: 8px;
+  }
+  .event-name span {
+    background: linear-gradient(135deg, var(--gold) 20%, #E8A820 100%);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+  }
+
+  .event-subtitle {
+    font-size: 13px;
+    color: var(--mid);
+    font-weight: 400;
+    line-height: 1.5;
+    max-width: 320px;
+    margin: 0 auto 12px;
+    padding: 0 8px;
+  }
+
+  .event-date-badge {
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    background: var(--white);
+    border: 1.5px solid var(--border);
+    border-radius: 30px;
+    padding: 6px 14px;
+    font-size: 12px;
+    font-weight: 500;
+    color: var(--mid);
+    box-shadow: 0 2px 8px var(--shadow);
+    font-family: 'Space Mono', monospace;
+  }
+  .event-date-badge .dot {
+    width: 7px;
+    height: 7px;
+    border-radius: 50%;
+    background: var(--gold);
+    animation: pulse 1.8s ease-in-out infinite;
+  }
+  @keyframes pulse {
+    0%,100% { opacity:1; transform:scale(1); }
+    50% { opacity:0.5; transform:scale(0.8); }
+  }
+
+  /* ── COUNTDOWN ── */
+  .countdown-section {
+    padding: 20px 16px 16px;
+    text-align: center;
+  }
+  .countdown-label {
+    font-size: 11px;
+    font-weight: 600;
+    letter-spacing: 2px;
+    text-transform: uppercase;
+    color: var(--soft);
+    margin-bottom: 14px;
+  }
+  .countdown-grid {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 8px;
+    max-width: 360px;
+    margin: 0 auto;
+  }
+  .countdown-box {
+    background: var(--white);
+    border: 1.5px solid var(--border);
+    border-radius: 14px;
+    padding: 12px 6px 8px;
+    box-shadow: 0 2px 12px var(--shadow);
+    position: relative;
+    overflow: hidden;
+  }
+  .countdown-box::after {
+    content: '';
+    position: absolute;
+    top: 0; left: 0; right: 0;
+    height: 3px;
+    background: linear-gradient(90deg, var(--gold), var(--gold-light));
+    border-radius: 3px 3px 0 0;
+  }
+  .countdown-num {
+    font-family: 'Space Mono', monospace;
+    font-size: 26px;
+    font-weight: 700;
+    color: var(--dark);
+    line-height: 1;
+    display: block;
+  }
+  .countdown-unit {
+    font-size: 9.5px;
+    font-weight: 600;
+    letter-spacing: 1.5px;
+    text-transform: uppercase;
+    color: var(--soft);
+    display: block;
+    margin-top: 4px;
+  }
+
+  .event-ended-msg {
+    display: none;
+    background: linear-gradient(135deg, #FFF0EE, #FFE4DF);
+    border: 1.5px solid #E8B0A8;
+    border-radius: 14px;
+    padding: 16px 20px;
+    margin: 0 16px;
+    text-align: center;
+    color: var(--red);
+    font-family: 'Playfair Display', serif;
+    font-size: 18px;
+    font-weight: 700;
+    letter-spacing: 0.3px;
+  }
+
+  /* ── SECTION DIVIDER ── */
+  .section-divider {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    padding: 4px 16px 0;
+    margin-bottom: 0;
+  }
+  .section-divider span {
+    font-size: 11px;
+    letter-spacing: 2px;
+    text-transform: uppercase;
+    font-weight: 600;
+    color: var(--soft);
+    white-space: nowrap;
+  }
+  .divider-line {
+    flex: 1;
+    height: 1px;
+    background: var(--border);
+  }
+
+  /* ── BUTTONS ROW ── */
+  .btn-row {
+    display: flex;
+    gap: 10px;
+    padding: 16px 16px 12px;
+  }
+  .btn-main {
+    flex: 1;
+    padding: 13px 10px;
+    border: none;
+    border-radius: 12px;
+    font-family: 'DM Sans', sans-serif;
+    font-size: 14px;
+    font-weight: 600;
+    cursor: pointer;
+    transition: all 0.22s ease;
+    letter-spacing: 0.2px;
+    position: relative;
+    overflow: hidden;
+  }
+  .btn-rules {
+    background: var(--white);
+    color: var(--dark);
+    border: 2px solid var(--border);
+    box-shadow: 0 2px 10px var(--shadow);
+  }
+  .btn-rules:active { transform: scale(0.97); }
+  .btn-rewards {
+    background: linear-gradient(135deg, var(--gold) 0%, #E8A820 100%);
+    color: var(--white);
+    box-shadow: 0 4px 16px rgba(201,151,43,0.35);
+  }
+  .btn-rewards:active { transform: scale(0.97); }
+  .btn-icon { margin-right: 5px; font-size: 16px; vertical-align: middle; }
+
+  /* ── LEADERBOARD ── */
+  .leaderboard-section {
+    padding: 0 16px 32px;
+  }
+  .lb-header {
+    background: linear-gradient(135deg, var(--dark) 0%, #3A2A08 100%);
+    border-radius: 16px 16px 0 0;
+    padding: 14px 16px 12px;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+  }
+  .lb-header-title {
+    font-family: 'Playfair Display', serif;
+    font-size: 16px;
+    font-weight: 700;
+    color: var(--gold-light);
+    flex: 1;
+  }
+  .lb-count {
+    font-size: 12px;
+    color: var(--soft);
+    font-family: 'Space Mono', monospace;
+  }
+
+  .lb-cols {
+    background: var(--ivory);
+    border-left: 1.5px solid var(--border);
+    border-right: 1.5px solid var(--border);
+    display: grid;
+    grid-template-columns: 52px 1fr 90px;
+    padding: 8px 14px;
+  }
+  .lb-col-label {
+    font-size: 10px;
+    font-weight: 700;
+    letter-spacing: 1.8px;
+    text-transform: uppercase;
+    color: var(--soft);
+  }
+  .lb-col-label:last-child { text-align: right; }
+
+  .lb-body {
+    border: 1.5px solid var(--border);
+    border-top: none;
+    border-radius: 0 0 16px 16px;
+    overflow: hidden;
+    background: var(--white);
+  }
+  .lb-row {
+    display: grid;
+    grid-template-columns: 52px 1fr 90px;
+    padding: 12px 14px;
+    align-items: center;
+    border-bottom: 1px solid var(--border);
+    transition: background 0.15s;
+    position: relative;
+  }
+  .lb-row:last-child { border-bottom: none; }
+  .lb-row:active { background: var(--ivory); }
+
+  .lb-row.rank-1 { background: linear-gradient(90deg, rgba(201,151,43,0.06) 0%, transparent 100%); }
+  .lb-row.rank-2 { background: linear-gradient(90deg, rgba(140,155,168,0.05) 0%, transparent 100%); }
+  .lb-row.rank-3 { background: linear-gradient(90deg, rgba(160,113,79,0.05) 0%, transparent 100%); }
+
+  .rank-badge {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    width: 30px;
+    height: 30px;
+    border-radius: 8px;
+    font-family: 'Space Mono', monospace;
+    font-size: 13px;
+    font-weight: 700;
+  }
+  .rank-badge.r1 { background: rgba(201,151,43,0.12); color: var(--rank1); }
+  .rank-badge.r2 { background: rgba(140,155,168,0.12); color: var(--rank2); }
+  .rank-badge.r3 { background: rgba(160,113,79,0.12); color: var(--rank3); }
+  .rank-badge.rn { background: var(--ivory); color: var(--soft); font-size: 12px; }
+
+  .lb-name {
+    font-size: 14px;
+    font-weight: 500;
+    color: var(--dark);
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    padding-right: 8px;
+  }
+  .lb-name sub { font-size: 10px; color: var(--soft); font-weight: 400; display: block; margin-top: 1px; }
+
+  .lb-points {
+    text-align: right;
+    font-family: 'Space Mono', monospace;
+    font-size: 13px;
+    font-weight: 700;
+    color: var(--gold);
+  }
+  .lb-points sub { font-size: 9px; color: var(--soft); font-weight: 400; font-family: 'DM Sans', sans-serif; display: block; }
+
+  .rank-trophy { font-size: 16px; margin-left: -2px; }
+
+  .lb-empty {
+    padding: 32px 16px;
+    text-align: center;
+    color: var(--soft);
+    font-size: 14px;
+  }
+  .lb-empty .lb-empty-icon { font-size: 36px; display: block; margin-bottom: 8px; }
+
+  /* ── MODAL OVERLAY ── */
+  .modal-overlay {
+    display: none;
+    position: fixed;
+    inset: 0;
+    background: rgba(20,14,4,0.55);
+    backdrop-filter: blur(4px);
+    z-index: 100;
+    align-items: flex-end;
+    justify-content: center;
+  }
+  .modal-overlay.active { display: flex; }
+
+  .modal-sheet {
+    background: var(--cream);
+    border-radius: 24px 24px 0 0;
+    width: 100%;
+    max-width: 480px;
+    max-height: 88vh;
+    overflow-y: auto;
+    padding: 0 0 40px;
+    animation: slideUp 0.3s cubic-bezier(0.32, 0.72, 0, 1);
+  }
+  @keyframes slideUp {
+    from { transform: translateY(100%); }
+    to { transform: translateY(0); }
+  }
+
+  .modal-handle {
+    width: 40px;
+    height: 4px;
+    border-radius: 2px;
+    background: var(--border);
+    margin: 12px auto 0;
+  }
+
+  .modal-head {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 20px 20px 16px;
+    border-bottom: 1.5px solid var(--border);
+  }
+  .modal-title {
+    font-family: 'Playfair Display', serif;
+    font-size: 20px;
+    font-weight: 700;
+    color: var(--dark);
+  }
+  .modal-close {
+    width: 34px;
+    height: 34px;
+    border-radius: 50%;
+    border: 1.5px solid var(--border);
+    background: var(--white);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    font-size: 16px;
+    color: var(--mid);
+  }
+
+  /* ── RULES MODAL ── */
+  .rules-body { padding: 20px; }
+  .rule-item {
+    display: flex;
+    gap: 12px;
+    margin-bottom: 16px;
+    align-items: flex-start;
+  }
+  .rule-num {
+    flex-shrink: 0;
+    width: 26px;
+    height: 26px;
+    border-radius: 8px;
+    background: linear-gradient(135deg, var(--gold), var(--gold-light));
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 11px;
+    font-weight: 700;
+    color: var(--white);
+    font-family: 'Space Mono', monospace;
+    margin-top: 1px;
+  }
+  .rule-text {
+    font-size: 14px;
+    line-height: 1.6;
+    color: var(--mid);
+    font-weight: 400;
+  }
+
+  /* ── REWARDS MODAL ── */
+  .reward-tabs {
+    display: flex;
+    gap: 0;
+    padding: 14px 20px 0;
+    border-bottom: 1.5px solid var(--border);
+    overflow-x: auto;
+    scrollbar-width: none;
+  }
+  .reward-tabs::-webkit-scrollbar { display: none; }
+  .r-tab {
+    padding: 8px 14px 10px;
+    font-size: 13px;
+    font-weight: 600;
+    color: var(--soft);
+    cursor: pointer;
+    white-space: nowrap;
+    border-bottom: 3px solid transparent;
+    transition: all 0.18s;
+    margin-bottom: -1.5px;
+  }
+  .r-tab.active {
+    color: var(--gold);
+    border-bottom-color: var(--gold);
+  }
+
+  .reward-panel { display: none; padding: 18px 20px; }
+  .reward-panel.active { display: block; }
+
+  /* Reward Tables */
+  .reward-table { width: 100%; border-collapse: collapse; margin-top: 4px; }
+  .reward-table th {
+    padding: 9px 10px;
+    background: var(--ivory);
+    font-size: 11px;
+    font-weight: 700;
+    letter-spacing: 1.5px;
+    text-transform: uppercase;
+    color: var(--soft);
+    border-bottom: 1.5px solid var(--border);
+    text-align: left;
+  }
+  .reward-table th:last-child { text-align: right; }
+  .reward-table td {
+    padding: 10px 10px;
+    font-size: 13.5px;
+    color: var(--dark);
+    border-bottom: 1px solid var(--border);
+    vertical-align: middle;
+  }
+  .reward-table td:first-child {
+    font-family: 'Space Mono', monospace;
+    font-weight: 700;
+    color: var(--gold);
+    font-size: 13px;
+  }
+  .reward-table td:last-child { text-align: right; color: var(--mid); font-size: 13px; }
+  .reward-table tr:last-child td { border-bottom: none; }
+
+  .vip-frame-img {
+    width: 38px;
+    height: 38px;
+    border-radius: 50%;
+    object-fit: cover;
+    border: 2px solid var(--gold-light);
+    background: var(--ivory);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 20px;
+    margin: 0 auto;
+  }
+  .frame-placeholder {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    width: 38px;
+    height: 38px;
+    border-radius: 50%;
+    background: var(--ivory);
+    border: 1.5px dashed var(--border);
+    font-size: 16px;
+  }
+
+  /* Exclusive Reward */
+  .exclusive-card {
+    background: linear-gradient(135deg, #FFFBF0 0%, #FDF3DC 100%);
+    border: 1.5px solid var(--border);
+    border-radius: 16px;
+    padding: 24px 20px;
+    text-align: center;
+  }
+  .exclusive-frame-wrap {
+    width: 110px;
+    height: 110px;
+    border-radius: 50%;
+    margin: 0 auto 16px;
+    border: 3px solid var(--gold-light);
+    background: var(--ivory);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 52px;
+    box-shadow: 0 4px 20px var(--shadow);
+    overflow: hidden;
+  }
+  .exclusive-frame-wrap img { width: 100%; height: 100%; object-fit: cover; }
+  .exclusive-desc {
+    font-size: 14px;
+    line-height: 1.6;
+    color: var(--mid);
+  }
+  .exclusive-desc strong { color: var(--dark); font-weight: 600; }
+
+  /* scrollbar */
+  .modal-sheet::-webkit-scrollbar { width: 4px; }
+  .modal-sheet::-webkit-scrollbar-track { background: transparent; }
+  .modal-sheet::-webkit-scrollbar-thumb { background: var(--border); border-radius: 2px; }
+
+  /* ── FOOTER ── */
+  .page-footer {
+    text-align: center;
+    padding: 16px;
+    font-size: 11px;
+    color: var(--soft);
+    letter-spacing: 0.5px;
+  }
+</style>
+</head>
+<body>
+
+<!-- ══════════════ HEADER ══════════════ -->
+<div class="header">
+  <div class="logo-wrap">
+    <div class="logo-placeholder" id="logoDisplay">🏆</div>
+    <!-- If logo img: <img id="logoImg" src="" alt="Logo"> -->
+  </div>
+
+  <h1 class="event-name" id="eventNameDisplay">
+    <span id="eventNameText">Recharge Arena</span>
+  </h1>
+
+  <p class="event-subtitle" id="eventSubtitleDisplay">
+    Users earn Event Points by purchasing coins during the event period.
+  </p>
+
+  <div class="event-date-badge">
+    <span class="dot"></span>
+    <span id="eventDateDisplay">Loading event date...</span>
+  </div>
+</div>
+
+<!-- ══════════════ COUNTDOWN ══════════════ -->
+<div class="countdown-section">
+  <p class="countdown-label">⏳ Event Ends In</p>
+  <div class="countdown-grid" id="countdownGrid">
+    <div class="countdown-box">
+      <span class="countdown-num" id="cd-days">00</span>
+      <span class="countdown-unit">Days</span>
+    </div>
+    <div class="countdown-box">
+      <span class="countdown-num" id="cd-hours">00</span>
+      <span class="countdown-unit">Hours</span>
+    </div>
+    <div class="countdown-box">
+      <span class="countdown-num" id="cd-mins">00</span>
+      <span class="countdown-unit">Mins</span>
+    </div>
+    <div class="countdown-box">
+      <span class="countdown-num" id="cd-secs">00</span>
+      <span class="countdown-unit">Secs</span>
+    </div>
+  </div>
+  <div class="event-ended-msg" id="eventEndedMsg">🏁 Event Has Ended</div>
+</div>
+
+<!-- ══════════════ BUTTONS ══════════════ -->
+<div class="section-divider"><div class="divider-line"></div><span>Actions</span><div class="divider-line"></div></div>
+<div class="btn-row">
+  <button class="btn-main btn-rules" onclick="openModal('rulesModal')">
+    <span class="btn-icon">📋</span>Rules
+  </button>
+  <button class="btn-main btn-rewards" onclick="openModal('rewardsModal')">
+    <span class="btn-icon">🎁</span>Rewards
+  </button>
+</div>
+
+<!-- ══════════════ LEADERBOARD ══════════════ -->
+<div class="section-divider" style="margin-bottom:12px;"><div class="divider-line"></div><span>Leaderboard</span><div class="divider-line"></div></div>
+<div class="leaderboard-section">
+  <div class="lb-header">
+    <span style="font-size:18px;">🏅</span>
+    <span class="lb-header-title">Rankings</span>
+    <span class="lb-count" id="lbCount">0 Players</span>
+  </div>
+  <div class="lb-cols">
+    <span class="lb-col-label">Rank</span>
+    <span class="lb-col-label">Name</span>
+    <span class="lb-col-label" style="text-align:right;">Points</span>
+  </div>
+  <div class="lb-body" id="leaderboardBody">
+    <div class="lb-empty">
+      <span class="lb-empty-icon">📊</span>
+      No rankings yet. Event is loading...
+    </div>
+  </div>
+</div>
+
+<div class="page-footer">Recharge Arena · Powered by Admin Panel</div>
+
+<!-- ══════════════ RULES MODAL ══════════════ -->
+<div class="modal-overlay" id="rulesModal" onclick="closeOnOverlay(event,'rulesModal')">
+  <div class="modal-sheet">
+    <div class="modal-handle"></div>
+    <div class="modal-head">
+      <span class="modal-title">📋 Event Rules</span>
+      <div class="modal-close" onclick="closeModal('rulesModal')">✕</div>
+    </div>
+    <div class="rules-body" id="rulesBody">
+      <!-- Loaded from eventData -->
+    </div>
+  </div>
+</div>
+
+<!-- ══════════════ REWARDS MODAL ══════════════ -->
+<div class="modal-overlay" id="rewardsModal" onclick="closeOnOverlay(event,'rewardsModal')">
+  <div class="modal-sheet">
+    <div class="modal-handle"></div>
+    <div class="modal-head">
+      <span class="modal-title">🎁 Rewards</span>
+      <div class="modal-close" onclick="closeModal('rewardsModal')">✕</div>
+    </div>
+
+    <div class="reward-tabs">
+      <div class="r-tab active" onclick="switchTab('ranking')">🏆 Ranking</div>
+      <div class="r-tab" onclick="switchTab('vip')">👑 VIP</div>
+      <div class="r-tab" onclick="switchTab('exclusive')">💎 Exclusive</div>
+    </div>
+
+    <!-- Ranking Reward -->
+    <div class="reward-panel active" id="tab-ranking">
+      <table class="reward-table" id="rankingRewardTable">
+        <thead><tr><th>Rank</th><th style="text-align:right;">Rebate</th></tr></thead>
+        <tbody id="rankingRewardBody"></tbody>
+      </table>
+    </div>
+
+    <!-- VIP Reward -->
+    <div class="reward-panel" id="tab-vip">
+      <table class="reward-table" id="vipRewardTable">
+        <thead>
+          <tr>
+            <th>Rank</th>
+            <th style="text-align:center;">VIP Frame</th>
+            <th style="text-align:right;">Validity</th>
+          </tr>
+        </thead>
+        <tbody id="vipRewardBody"></tbody>
+      </table>
+    </div>
+
+    <!-- Exclusive Reward -->
+    <div class="reward-panel" id="tab-exclusive">
+      <div class="exclusive-card">
+        <div class="exclusive-frame-wrap" id="exclusiveFrameWrap">🖼️</div>
+        <p class="exclusive-desc" id="exclusiveDesc">Loading exclusive reward details...</p>
+      </div>
+    </div>
+  </div>
+</div>
+
+<script>
+// ══════════════════════════════════════════
+//  EVENT DATA — loaded from admin panel JSON
+// ══════════════════════════════════════════
+const EVENT_DATA_KEY = 'rechargeArenaData';
+
+const defaultData = {
+  eventName: "Recharge Arena",
+  eventSubtitle: "Users earn Event Points by purchasing coins during the event period.",
+  eventEndDate: new Date(Date.now() + 5 * 24 * 60 * 60 * 1000).toISOString(),
+  logoEmoji: "🏆",
+  logoUrl: "",
+  leaderboard: [],
+  rules: [],
+  rankingRewards: [],
+  vipRewards: [],
+  exclusiveFrameUrl: "",
+  exclusiveFrameEmoji: "💎",
+  exclusiveDesc: "This exclusive diamond frame is awarded to the <strong>Top 3 ranked players</strong> who maintain their position until the event ends. It is a permanent badge of honour displayed on your profile."
+};
+
+// Load data
+function loadData() {
+  try {
+    const raw = localStorage.getItem(EVENT_DATA_KEY);
+    return raw ? JSON.parse(raw) : defaultData;
+  } catch(e) { return defaultData; }
+}
+
+function renderAll() {
+  const d = loadData();
+
+  // Event name & subtitle
+  document.getElementById('eventNameText').textContent = d.eventName || 'Recharge Arena';
+  document.getElementById('eventSubtitleDisplay').textContent = d.eventSubtitle || '';
+
+  // Date display
+  if (d.eventEndDate) {
+    const dt = new Date(d.eventEndDate);
+    document.getElementById('eventDateDisplay').textContent =
+      'Ends: ' + dt.toLocaleDateString('en-IN', { day:'numeric', month:'short', year:'numeric' })
+      + ' ' + dt.toLocaleTimeString('en-IN', { hour:'2-digit', minute:'2-digit' });
+  }
+
+  // Logo
+  if (d.logoUrl) {
+    document.getElementById('logoDisplay').innerHTML = `<img src="${d.logoUrl}" style="width:100%;height:100%;border-radius:16px;object-fit:cover;">`;
+  } else {
+    document.getElementById('logoDisplay').textContent = d.logoEmoji || '🏆';
+  }
+
+  // Leaderboard
+  renderLeaderboard(d.leaderboard || []);
+
+  // Rules
+  renderRules(d.rules || []);
+
+  // Rewards
+  renderRankingRewards(d.rankingRewards || []);
+  renderVipRewards(d.vipRewards || []);
+  renderExclusive(d);
+
+  // Countdown
+  startCountdown(d.eventEndDate);
+}
+
+function renderLeaderboard(data) {
+  const body = document.getElementById('leaderboardBody');
+  const count = document.getElementById('lbCount');
+  count.textContent = data.length + ' Player' + (data.length !== 1 ? 's' : '');
+
+  if (!data.length) {
+    body.innerHTML = `<div class="lb-empty"><span class="lb-empty-icon">📊</span>No rankings yet.</div>`;
+    return;
+  }
+
+  const trophies = ['🥇','🥈','🥉'];
+  body.innerHTML = data.map((p, i) => {
+    const rankClass = i < 3 ? `rank-${i+1}` : '';
+    const badgeClass = i === 0 ? 'r1' : i === 1 ? 'r2' : i === 2 ? 'r3' : 'rn';
+    const trophy = i < 3 ? `<span class="rank-trophy">${trophies[i]}</span>` : '';
+    const pts = Number(p.points).toLocaleString('en-IN');
+    return `
+      <div class="lb-row ${rankClass}">
+        <div><span class="rank-badge ${badgeClass}">${p.rank}</span></div>
+        <div class="lb-name">${p.name}${trophy}</div>
+        <div class="lb-points">${pts}<sub>pts</sub></div>
+      </div>`;
+  }).join('');
+}
+
+function renderRules(rules) {
+  const body = document.getElementById('rulesBody');
+  body.innerHTML = rules.map((r, i) => `
+    <div class="rule-item">
+      <span class="rule-num">${i+1}</span>
+      <p class="rule-text">${r}</p>
+    </div>`).join('');
+}
+
+function renderRankingRewards(data) {
+  document.getElementById('rankingRewardBody').innerHTML = data.map(r => `
+    <tr>
+      <td>${r.rank}</td>
+      <td style="text-align:right;font-weight:600;color:var(--green);">${r.rebate}</td>
+    </tr>`).join('');
+}
+
+function renderVipRewards(data) {
+  document.getElementById('vipRewardBody').innerHTML = data.map(r => {
+    const frame = r.frameUrl
+      ? `<img src="${r.frameUrl}" class="vip-frame-img" alt="frame">`
+      : `<span class="frame-placeholder">${r.frameEmoji||'🖼️'}</span>`;
+    return `
+      <tr>
+        <td>${r.rank}</td>
+        <td style="text-align:center;">${frame}</td>
+        <td>${r.validity}</td>
+      </tr>`;
+  }).join('');
+}
+
+function renderExclusive(d) {
+  const wrap = document.getElementById('exclusiveFrameWrap');
+  if (d.exclusiveFrameUrl) {
+    wrap.innerHTML = `<img src="${d.exclusiveFrameUrl}" alt="Exclusive Frame">`;
+  } else {
+    wrap.textContent = d.exclusiveFrameEmoji || '💎';
+  }
+  document.getElementById('exclusiveDesc').innerHTML = d.exclusiveDesc || '';
+}
+
+// Countdown
+let cdInterval;
+function startCountdown(endDateStr) {
+  if (cdInterval) clearInterval(cdInterval);
+  function tick() {
+    const end = new Date(endDateStr).getTime();
+    const now = Date.now();
+    const diff = end - now;
+    if (diff <= 0) {
+      document.getElementById('countdownGrid').style.display = 'none';
+      document.getElementById('eventEndedMsg').style.display = 'block';
+      clearInterval(cdInterval);
+      return;
+    }
+    const d = Math.floor(diff / 86400000);
+    const h = Math.floor((diff % 86400000) / 3600000);
+    const m = Math.floor((diff % 3600000) / 60000);
+    const s = Math.floor((diff % 60000) / 1000);
+    document.getElementById('cd-days').textContent = String(d).padStart(2,'0');
+    document.getElementById('cd-hours').textContent = String(h).padStart(2,'0');
+    document.getElementById('cd-mins').textContent = String(m).padStart(2,'0');
+    document.getElementById('cd-secs').textContent = String(s).padStart(2,'0');
+  }
+  tick();
+  cdInterval = setInterval(tick, 1000);
+}
+
+// Modal controls
+function openModal(id) {
+  document.getElementById(id).classList.add('active');
+  document.body.style.overflow = 'hidden';
+}
+function closeModal(id) {
+  document.getElementById(id).classList.remove('active');
+  document.body.style.overflow = '';
+}
+function closeOnOverlay(e, id) {
+  if (e.target === document.getElementById(id)) closeModal(id);
+}
+
+// Reward tabs
+function switchTab(tab) {
+  document.querySelectorAll('.r-tab').forEach(t => t.classList.remove('active'));
+  document.querySelectorAll('.reward-panel').forEach(p => p.classList.remove('active'));
+  const tabs = { ranking: 0, vip: 1, exclusive: 2 };
+  document.querySelectorAll('.r-tab')[tabs[tab]].classList.add('active');
+  document.getElementById('tab-' + tab).classList.add('active');
+}
+
+// Listen for admin panel updates via localStorage
+window.addEventListener('storage', e => {
+  if (e.key === EVENT_DATA_KEY) renderAll();
+});
+
+// Init
+renderAll();
+</script>
+</body>
+</html>
