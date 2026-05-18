@@ -98,10 +98,8 @@
   .preview-frame img { height: 80px; border-radius: 12px; border: 2px solid var(--gold-light); box-shadow: 0 2px 10px var(--shadow); }
   .preview-label { font-size: 11px; color: var(--soft); margin-top: 6px; }
 
-  /* Cloudinary badge */
   .cloud-badge { display: inline-block; background: #EEF3FA; border: 1px solid #C5D5EC; color: var(--accent); font-size: 11px; font-weight: 600; padding: 2px 8px; border-radius: 20px; margin-left: 8px; }
 
-  /* Upload progress */
   .upload-progress { display: none; margin-top: 10px; }
   .upload-progress-bar { height: 4px; border-radius: 2px; background: var(--border); overflow: hidden; margin-bottom: 4px; }
   .upload-progress-fill { height: 100%; border-radius: 2px; background: linear-gradient(90deg, var(--gold), var(--gold-light)); width: 0%; transition: width 0.3s; animation: progressAnim 1.5s ease-in-out infinite; }
@@ -113,12 +111,25 @@
   .toast.success { border-left: 4px solid var(--green); }
   .toast.error { border-left: 4px solid var(--red); }
 
+  /* ── PUBLISH INSTRUCTIONS BANNER ── */
+  .publish-info {
+    background: linear-gradient(135deg, #E8F4FD, #EEF3FA);
+    border: 1.5px solid #B8D4EC;
+    border-radius: 14px;
+    padding: 16px 20px;
+    margin-bottom: 20px;
+  }
+  .publish-info-title { font-size: 14px; font-weight: 700; color: var(--accent); margin-bottom: 8px; display: flex; align-items: center; gap: 6px; }
+  .publish-steps { list-style: none; counter-reset: steps; }
+  .publish-steps li { font-size: 13px; color: #3A5A80; padding: 4px 0; counter-increment: steps; display: flex; align-items: flex-start; gap: 8px; line-height: 1.5; }
+  .publish-steps li::before { content: counter(steps); min-width: 20px; height: 20px; border-radius: 50%; background: var(--accent); color: white; font-size: 11px; font-weight: 700; display: flex; align-items: center; justify-content: center; flex-shrink: 0; margin-top: 1px; }
+  .publish-steps li code { background: rgba(26,79,140,0.1); padding: 1px 6px; border-radius: 4px; font-family: 'Space Mono', monospace; font-size: 11px; }
+
   .excel-info { background: #EEF3FA; border: 1.5px solid #C5D5EC; border-radius: 12px; padding: 14px 16px; margin-bottom: 14px; font-size: 13px; color: var(--accent); line-height: 1.6; }
   .excel-info strong { font-weight: 600; }
   .excel-cols-info { display: flex; gap: 8px; margin-top: 8px; flex-wrap: wrap; }
   .col-tag { background: var(--accent); color: var(--white); padding: 3px 10px; border-radius: 20px; font-size: 11px; font-weight: 600; font-family: 'Space Mono', monospace; }
 
-  /* Cloudinary info box */
   .cloudinary-info { background: linear-gradient(135deg, #E8F4FD, #EEF3FA); border: 1.5px solid #B8D4EC; border-radius: 12px; padding: 14px 16px; margin-bottom: 20px; }
   .cloudinary-info-title { font-size: 13px; font-weight: 700; color: var(--accent); margin-bottom: 6px; display: flex; align-items: center; gap: 6px; }
   .cloudinary-info-text { font-size: 12px; color: #3A5A80; line-height: 1.5; }
@@ -149,7 +160,7 @@
 
   /* VIP frame cell */
   .vip-frame-cell { text-align: center; }
-  .vip-frame-thumb { width: 40px; height: 40px; border-radius: 50%; border: 2px solid var(--gold-light); object-fit: cover; cursor: pointer; transition: transform 0.15s; }
+  .vip-frame-thumb { width: 48px; height: 48px; border-radius: 8px; object-fit: contain; cursor: pointer; transition: transform 0.15s; border: 1.5px solid var(--border); }
   .vip-frame-thumb:hover { transform: scale(1.1); }
   .vip-upload-btn { font-size: 11px; color: var(--accent); cursor: pointer; text-decoration: underline; display: block; margin-top: 3px; }
 
@@ -178,7 +189,7 @@
     <div class="nav-section-label">Tools</div>
     <div class="nav-item" onclick="exportJSON()"><span class="nav-icon">⬇️</span> Export JSON</div>
     <div class="nav-item" onclick="resetData()"><span class="nav-icon">🔄</span> Reset All Data</div>
-    <div class="sidebar-footer">Recharge Arena v3.0 · Cloudinary</div>
+    <div class="sidebar-footer">Recharge Arena v3.1 · JSON Mode</div>
   </aside>
 
   <div class="main">
@@ -187,7 +198,7 @@
       <div class="topbar-actions">
         <button class="btn btn-secondary btn-sm" onclick="testCloudinaryConnection()">☁️ Test Cloud</button>
         <button class="btn btn-secondary" onclick="exportJSON()">⬇ Export JSON</button>
-        <button class="btn btn-primary" onclick="saveAll()">💾 Save &amp; Publish</button>
+        <button class="btn btn-primary" onclick="saveAll()">💾 Save &amp; Export</button>
       </div>
     </div>
 
@@ -213,10 +224,21 @@
       <!-- SECTION: GENERAL -->
       <div class="section active" id="sec-general">
 
+        <!-- ✅ PUBLISH INSTRUCTIONS — How to share across browsers -->
+        <div class="publish-info">
+          <div class="publish-info-title">🌐 Sab Browsers Mein Kaise Dikhaye?</div>
+          <ol class="publish-steps">
+            <li>Neeche "💾 Save &amp; Export" dabao — <code>recharge-arena-data.json</code> download hoga</li>
+            <li>Ye JSON file aur <code>index.html</code> (event page) ek hi folder mein rakho</li>
+            <li>Kisi bhi hosting pe upload karo (cPanel, GitHub Pages, Firebase, Netlify, etc.)</li>
+            <li>Ab event page <strong>dono ka data JSON se load karega</strong> — har browser mein same dikhega ✅</li>
+          </ol>
+        </div>
+
         <div class="cloudinary-info">
           <div class="cloudinary-info-title">☁️ Cloudinary Connected</div>
           <div class="cloudinary-info-text">
-            Images ab Cloudinary cloud pe store hongi — localStorage limit khatam! Folder: <strong>recharge-arena/</strong>
+            Images Cloudinary cloud pe store hongi — localStorage limit khatam! Folder: <strong>recharge-arena/</strong>
           </div>
           <div class="cloudinary-creds">
             <span class="cred-tag">Cloud: dynrnfcfv</span>
@@ -346,7 +368,7 @@
             <thead>
               <tr>
                 <th style="width:80px;">Rank</th>
-                <th style="width:80px;">Frame</th>
+                <th style="width:90px;">Frame</th>
                 <th>Emoji</th>
                 <th>Validity</th>
                 <th style="width:40px;"></th>
@@ -401,37 +423,29 @@
 // CLOUDINARY CONFIG
 // ══════════════════════════════
 const CLOUDINARY_CLOUD_NAME  = 'dynrnfcfv';
-const CLOUDINARY_UPLOAD_PRESET = 'recharge_arena'; // Tumhe ye preset Cloudinary dashboard pe banana hai (unsigned)
+const CLOUDINARY_UPLOAD_PRESET = 'recharge_arena';
 const CLOUDINARY_FOLDER = 'recharge-arena';
 
-// ══════════════════════════════
-// CLOUDINARY UPLOAD FUNCTION
-// ══════════════════════════════
 async function uploadToCloudinary(file, subFolder) {
   const formData = new FormData();
   formData.append('file', file);
   formData.append('upload_preset', CLOUDINARY_UPLOAD_PRESET);
   formData.append('folder', CLOUDINARY_FOLDER + '/' + subFolder);
-
   const response = await fetch(
     `https://api.cloudinary.com/v1_1/${CLOUDINARY_CLOUD_NAME}/image/upload`,
     { method: 'POST', body: formData }
   );
-
   if (!response.ok) {
     const errData = await response.json();
     throw new Error(errData.error?.message || 'Upload failed');
   }
-
   const data = await response.json();
-  return data.secure_url; // HTTPS URL jo Cloudinary deta hai
+  return data.secure_url;
 }
 
-// Cloudinary connection test
 async function testCloudinaryConnection() {
   showToast('🔄 Testing Cloudinary connection...', 'success');
   try {
-    // Simple test with a tiny 1px image
     const canvas = document.createElement('canvas');
     canvas.width = 1; canvas.height = 1;
     canvas.getContext('2d').fillRect(0,0,1,1);
@@ -449,12 +463,12 @@ async function testCloudinaryConnection() {
 }
 
 // ══════════════════════════════
-// STORAGE KEYS — sirf URLs store hongi (images Cloudinary pe)
+// STORAGE — localStorage as draft, JSON export as publish
 // ══════════════════════════════
 const KEY_DATA    = 'rca_data';
-const KEY_LOGO    = 'rca_logo_url';   // Sirf Cloudinary URL
-const KEY_EXCL    = 'rca_excl_url';   // Sirf Cloudinary URL
-const KEY_VIP_PRE = 'rca_vip_url_';  // Sirf Cloudinary URLs
+const KEY_LOGO    = 'rca_logo_url';
+const KEY_EXCL    = 'rca_excl_url';
+const KEY_VIP_PRE = 'rca_vip_url_';
 
 const defaults = {
   eventName: "Recharge Arena",
@@ -478,15 +492,33 @@ function loadData() {
 }
 
 function saveData(d) {
-  const clean = Object.assign({}, d);
-  localStorage.setItem(KEY_DATA, JSON.stringify(clean));
+  localStorage.setItem(KEY_DATA, JSON.stringify(d));
 }
 
 // ══════════════════════════════
-// INIT
+// INIT — Try to load from JSON file first, then localStorage
 // ══════════════════════════════
-function init() {
-  const d = loadData();
+async function init() {
+  let d = loadData(); // localStorage fallback
+
+  // Try loading from JSON file (agar same folder mein hai)
+  try {
+    const res = await fetch('recharge-arena-data.json?t=' + Date.now(), { cache: 'no-store' });
+    if (res.ok) {
+      const jsonData = await res.json();
+      d = Object.assign({}, defaults, jsonData);
+      // JSON se localStorage bhi update karo
+      saveData(d);
+      if (d.logoUrl) localStorage.setItem(KEY_LOGO, d.logoUrl);
+      if (d.exclusiveFrameUrl) localStorage.setItem(KEY_EXCL, d.exclusiveFrameUrl);
+      if (d.vipRewards) {
+        d.vipRewards.forEach((r, i) => {
+          if (r.frameUrl) localStorage.setItem(KEY_VIP_PRE + i, r.frameUrl);
+        });
+      }
+    }
+  } catch(e) { /* JSON file nahi hai, localStorage use karo */ }
+
   document.getElementById('eventName').value = d.eventName || '';
   document.getElementById('eventSubtitle').value = d.eventSubtitle || '';
   document.getElementById('logoEmoji').value = d.logoEmoji || '🏆';
@@ -495,15 +527,14 @@ function init() {
   if (d.eventStartDate) document.getElementById('eventStartDate').value = d.eventStartDate.slice(0,16);
   if (d.eventEndDate) document.getElementById('eventEndDate').value = d.eventEndDate.slice(0,16);
 
-  // Load image URLs from localStorage (these are just Cloudinary URLs now)
-  const logoUrl = localStorage.getItem(KEY_LOGO);
+  const logoUrl = d.logoUrl || localStorage.getItem(KEY_LOGO);
   if (logoUrl) {
     document.getElementById('logoPreviewImg').src = logoUrl;
     document.getElementById('logoPreview').style.display = 'block';
     document.getElementById('logoSizeLabel').textContent = '✅ Logo (Cloudinary)';
   }
 
-  const exclUrl = localStorage.getItem(KEY_EXCL);
+  const exclUrl = d.exclusiveFrameUrl || localStorage.getItem(KEY_EXCL);
   if (exclUrl) {
     document.getElementById('exclusivePreviewImg').src = exclUrl;
     document.getElementById('exclusivePreview').style.display = 'block';
@@ -568,7 +599,6 @@ function getLbData() {
 function addLbRow() { const d=getLbData(); d.push({rank:d.length+1,name:'',points:0}); renderLbEditor(d); }
 function delLbRow(i) { const d=getLbData(); d.splice(i,1); renderLbEditor(d); }
 
-// CSV
 function handleDragOver(e,z) { e.preventDefault(); document.getElementById(z).classList.add('drag-over'); }
 function handleDragLeave(e,z) { document.getElementById(z).classList.remove('drag-over'); }
 function handleCsvDrop(e) { e.preventDefault(); document.getElementById('csvDropzone').classList.remove('drag-over'); if(e.dataTransfer.files[0]) processCSV(e.dataTransfer.files[0]); }
@@ -613,11 +643,11 @@ function addRankingReward() { const d=getRankingRewards(); d.push({rank:'',rebat
 function delRankingReward(i) { const d=getRankingRewards(); d.splice(i,1); renderRankingRewardsEditor(d); }
 
 // ══════════════════════════════
-// VIP REWARDS — Cloudinary URLs
+// VIP REWARDS
 // ══════════════════════════════
 function renderVipRewardsEditor(data) {
   document.getElementById('vipRewardEditorBody').innerHTML = (data||[]).map((r,i)=>{
-    const storedUrl = localStorage.getItem(KEY_VIP_PRE+i);
+    const storedUrl = localStorage.getItem(KEY_VIP_PRE+i) || r.frameUrl || '';
     const imgHtml = storedUrl
       ? `<img src="${storedUrl}" class="vip-frame-thumb" onclick="document.getElementById('vr-file-${i}').click()" title="Click to replace">`
       : `<span style="font-size:24px;cursor:pointer;" onclick="document.getElementById('vr-file-${i}').click()" title="Click to upload">${r.frameEmoji||'🖼️'}</span>`;
@@ -645,11 +675,7 @@ function getVipRewards() {
   }));
 }
 
-function addVipReward() {
-  const d=getVipRewards();
-  d.push({rank:'',frameEmoji:'🖼️',validity:'',frameUrl:''});
-  renderVipRewardsEditor(d);
-}
+function addVipReward() { const d=getVipRewards(); d.push({rank:'',frameEmoji:'🖼️',validity:'',frameUrl:''}); renderVipRewardsEditor(d); }
 
 function delVipReward(i) {
   const d=getVipRewards();
@@ -670,7 +696,6 @@ async function handleVipFrame(input, i) {
   try {
     const url = await uploadToCloudinary(input.files[0], 'vip-frames');
     localStorage.setItem(KEY_VIP_PRE+i, url);
-    // Update cell
     const cell = document.getElementById('vip-cell-'+i);
     if (cell) {
       cell.innerHTML = `<img src="${url}" class="vip-frame-thumb" onclick="document.getElementById('vr-file-${i}').click()" title="Click to replace"><label class="vip-upload-btn">Replace<input type="file" accept="image/*" id="vr-file-${i}" style="display:none" onchange="handleVipFrame(this,${i})"></label>`;
@@ -682,7 +707,7 @@ async function handleVipFrame(input, i) {
 }
 
 // ══════════════════════════════
-// LOGO UPLOAD — Cloudinary
+// LOGO UPLOAD
 // ══════════════════════════════
 async function handleLogoUpload(input) {
   if (!input.files[0]) return;
@@ -703,7 +728,7 @@ async function handleLogoUpload(input) {
 }
 
 // ══════════════════════════════
-// EXCLUSIVE UPLOAD — Cloudinary
+// EXCLUSIVE UPLOAD
 // ══════════════════════════════
 async function handleExclusiveUpload(input) {
   if (!input.files[0]) return;
@@ -724,7 +749,7 @@ async function handleExclusiveUpload(input) {
 }
 
 // ══════════════════════════════
-// SAVE ALL
+// SAVE ALL — localStorage + auto export JSON
 // ══════════════════════════════
 function saveAll() {
   const logoUrl = localStorage.getItem(KEY_LOGO) || '';
@@ -745,23 +770,33 @@ function saveAll() {
     exclusiveFrameUrl: exclUrl,
     exclusiveDesc: document.getElementById('exclusiveDesc').value
   };
+
   try {
     saveData(d);
-    showToast('💾 Saved & Published!', 'success');
     updateStats(d);
+    // Auto export JSON
+    exportJSONWithData(d);
+    showToast('💾 Saved! JSON downloaded — server pe upload karo ✅', 'success');
   } catch(err) {
     showToast('❌ Save failed: ' + err.message, 'error');
   }
 }
 
 // ══════════════════════════════
-// EXPORT JSON — Cloudinary URLs included
+// EXPORT JSON
 // ══════════════════════════════
+function exportJSONWithData(d) {
+  const blob = new Blob([JSON.stringify(d, null, 2)], {type:'application/json'});
+  const a = document.createElement('a');
+  a.href = URL.createObjectURL(blob);
+  a.download = 'recharge-arena-data.json';
+  a.click();
+}
+
 function exportJSON() {
-  const d = loadData();
   const logoUrl = localStorage.getItem(KEY_LOGO) || '';
   const exclUrl = localStorage.getItem(KEY_EXCL) || '';
-
+  const d = loadData();
   const exportObj = Object.assign({}, d, {
     logoUrl: logoUrl,
     exclusiveFrameUrl: exclUrl,
@@ -769,20 +804,15 @@ function exportJSON() {
       frameUrl: localStorage.getItem(KEY_VIP_PRE+i) || r.frameUrl || ''
     }))
   });
-
-  const blob = new Blob([JSON.stringify(exportObj, null, 2)], {type:'application/json'});
-  const a = document.createElement('a');
-  a.href = URL.createObjectURL(blob);
-  a.download = 'recharge-arena-data.json';
-  a.click();
-  showToast('⬇ JSON exported with Cloudinary URLs', 'success');
+  exportJSONWithData(exportObj);
+  showToast('⬇ JSON exported! Server pe upload karo.', 'success');
 }
 
 // ══════════════════════════════
 // RESET
 // ══════════════════════════════
 function resetData() {
-  if (!confirm('Reset ALL data? Cloudinary images will remain on cloud but local links will be removed.')) return;
+  if (!confirm('Reset ALL data? Cloudinary images will remain on cloud.')) return;
   Object.keys(localStorage).filter(k=>k.startsWith('rca_')).forEach(k=>localStorage.removeItem(k));
   init();
   showToast('🔄 Reset done', 'success');
@@ -797,12 +827,9 @@ function showToast(msg, type='success') {
   t.textContent = msg;
   t.className = `toast ${type} show`;
   clearTimeout(toastTimer);
-  toastTimer = setTimeout(()=>t.classList.remove('show'), 3200);
+  toastTimer = setTimeout(()=>t.classList.remove('show'), 4000);
 }
 
-// ══════════════════════════════
-// UTIL
-// ══════════════════════════════
 function escHtml(s) { return String(s).replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;').replace(/"/g,'&quot;'); }
 
 init();
