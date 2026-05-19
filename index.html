@@ -235,19 +235,78 @@
   .modal-title { font-family: 'Playfair Display', serif; font-size: 20px; font-weight: 700; color: var(--dark); }
   .modal-close { width: 34px; height: 34px; border-radius: 50%; border: 1.5px solid var(--border); background: var(--white); display: flex; align-items: center; justify-content: center; cursor: pointer; font-size: 16px; color: var(--mid); }
 
-  /* Rules */
+  /* ── RULES BODY ── */
   .rules-body { padding: 20px; }
-  .rte-content { font-size: 14px; line-height: 1.75; color: var(--mid); }
-  .rte-content h3 { font-family: 'Playfair Display', serif; font-size: 16px; font-weight: 700; color: var(--dark); margin: 16px 0 6px; padding-bottom: 5px; border-bottom: 1.5px solid var(--border); }
-  .rte-content h3:first-child { margin-top: 0; }
-  .rte-content ol { padding-left: 20px; margin: 6px 0; }
-  .rte-content ul { padding-left: 20px; margin: 6px 0; list-style-type: disc; }
-  .rte-content li { margin: 4px 0; }
-  .rte-content p { margin: 4px 0; }
-  .rte-content b, .rte-content strong { font-weight: 700; color: var(--dark); }
-  .rte-content i, .rte-content em { font-style: italic; }
 
-  /* Rewards */
+  /*
+   * ✅ FIX: rte-content — Admin panel RTE se aaya HTML yahan render hoga
+   * Sab formatting elements properly styled hain
+   */
+  .rte-content { font-size: 14px; line-height: 1.75; color: var(--mid); }
+
+  /* H3 headings — admin panel "H" button se bante hain */
+  .rte-content h3 {
+    font-family: 'Playfair Display', serif;
+    font-size: 16px;
+    font-weight: 700;
+    color: var(--dark);
+    margin: 20px 0 8px;
+    padding-bottom: 6px;
+    border-bottom: 1.5px solid var(--border);
+  }
+  .rte-content h3:first-child { margin-top: 0; }
+
+  /* Bold text */
+  .rte-content b,
+  .rte-content strong {
+    font-weight: 700;
+    color: var(--dark);
+  }
+
+  /* Italic text */
+  .rte-content i,
+  .rte-content em {
+    font-style: italic;
+    color: var(--mid);
+  }
+
+  /* Ordered list — admin panel "1. —" button se banta hai */
+  .rte-content ol {
+    padding-left: 22px;
+    margin: 8px 0 12px;
+  }
+  .rte-content ol li {
+    margin: 6px 0;
+    line-height: 1.6;
+    color: var(--mid);
+    font-size: 14px;
+  }
+
+  /* Unordered list — admin panel "• —" button se banta hai */
+  .rte-content ul {
+    padding-left: 22px;
+    margin: 8px 0 12px;
+    list-style-type: disc;
+  }
+  .rte-content ul li {
+    margin: 6px 0;
+    line-height: 1.6;
+    color: var(--mid);
+    font-size: 14px;
+  }
+  .rte-content ul li b,
+  .rte-content ul li strong {
+    color: var(--dark);
+    font-weight: 700;
+  }
+
+  /* Paragraph */
+  .rte-content p { margin: 6px 0; }
+
+  /* Div blocks (some browsers use div instead of p in contenteditable) */
+  .rte-content div { margin: 4px 0; }
+
+  /* Reward tabs */
   .reward-tabs { display: flex; padding: 14px 20px 0; border-bottom: 1.5px solid var(--border); overflow-x: auto; scrollbar-width: none; }
   .reward-tabs::-webkit-scrollbar { display: none; }
   .r-tab { padding: 8px 14px 10px; font-size: 13px; font-weight: 600; color: var(--soft); cursor: pointer; white-space: nowrap; border-bottom: 3px solid transparent; transition: all 0.18s; margin-bottom: -1.5px; }
@@ -263,43 +322,12 @@
   .reward-table td:last-child { text-align: right; color: var(--mid); font-size: 13px; }
   .reward-table tr:last-child td { border-bottom: none; }
 
-  /* ── VIP FRAME — No circle, bigger image ── */
-  .vip-frame-img {
-    width: 56px;
-    height: 56px;
-    object-fit: contain;
-    display: block;
-    margin: 0 auto;
-    border-radius: 8px;
-  }
-  .frame-placeholder {
-    display: inline-flex;
-    align-items: center;
-    justify-content: center;
-    width: 56px;
-    height: 56px;
-    background: var(--ivory);
-    border-radius: 8px;
-    font-size: 22px;
-  }
-
-  /* VIP table frame column centered */
+  .vip-frame-img { width: 56px; height: 56px; object-fit: contain; display: block; margin: 0 auto; border-radius: 8px; }
+  .frame-placeholder { display: inline-flex; align-items: center; justify-content: center; width: 56px; height: 56px; background: var(--ivory); border-radius: 8px; font-size: 22px; }
   .reward-table td.frame-col { text-align: center; padding: 8px 10px; }
 
   .exclusive-card { background: linear-gradient(135deg, #FFFBF0 0%, #FDF3DC 100%); border: 1.5px solid var(--border); border-radius: 16px; padding: 24px 20px; text-align: center; }
-  .exclusive-frame-wrap {
-    width: 120px;
-    height: 120px;
-    border-radius: 16px;
-    margin: 0 auto 16px;
-    background: var(--ivory);
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    font-size: 52px;
-    box-shadow: 0 4px 20px var(--shadow);
-    overflow: hidden;
-  }
+  .exclusive-frame-wrap { width: 120px; height: 120px; border-radius: 16px; margin: 0 auto 16px; background: var(--ivory); display: flex; align-items: center; justify-content: center; font-size: 52px; box-shadow: 0 4px 20px var(--shadow); overflow: hidden; }
   .exclusive-frame-wrap img { width: 100%; height: 100%; object-fit: contain; }
   .exclusive-desc { font-size: 14px; line-height: 1.6; color: var(--mid); }
   .exclusive-desc strong { color: var(--dark); font-weight: 600; }
@@ -309,7 +337,6 @@
 
   .page-footer { text-align: center; padding: 16px; font-size: 11px; color: var(--soft); letter-spacing: 0.5px; }
 
-  /* Loading state */
   .loading-bar { height: 3px; background: linear-gradient(90deg, var(--gold), var(--gold-light), var(--gold)); background-size: 200% 100%; animation: loadingAnim 1.2s ease infinite; }
   @keyframes loadingAnim { 0%{background-position:0%} 100%{background-position:200%} }
 </style>
@@ -418,14 +445,9 @@
 
 <script>
 // ══════════════════════════════════════════
-// DATA SOURCE — JSON file se fetch karo
-// Ye file admin panel ke saath SAME folder mein honi chahiye
-// Admin panel "Save & Publish" pe is file ko overwrite kare
+// DATA SOURCE
 // ══════════════════════════════════════════
 const DATA_JSON_PATH = 'recharge-arena-data.json';
-
-// Cache bust har 30 seconds pe (fresh data milta rahe)
-let cacheKey = Date.now();
 
 const defaultData = {
   eventName: "Recharge Arena",
@@ -443,20 +465,14 @@ const defaultData = {
   exclusiveDesc: "This exclusive diamond frame is awarded to the Top 3 ranked players who maintain their position until the event ends."
 };
 
-// ══════════════════════════════════════════
-// FETCH JSON DATA (works across all browsers/devices)
-// ══════════════════════════════════════════
 async function fetchData() {
   try {
-    const res = await fetch(DATA_JSON_PATH + '?t=' + Date.now(), {
-      cache: 'no-store'
-    });
+    const res = await fetch(DATA_JSON_PATH + '?t=' + Date.now(), { cache: 'no-store' });
     if (!res.ok) throw new Error('File not found');
     const data = await res.json();
     return Object.assign({}, defaultData, data);
   } catch(e) {
     console.warn('JSON fetch failed, falling back to localStorage:', e.message);
-    // Fallback: localStorage se try karo (same browser ke liye)
     try {
       const raw = localStorage.getItem('rca_data');
       if (raw) {
@@ -469,7 +485,10 @@ async function fetchData() {
             return Object.assign({}, r, { frameUrl: vipUrl || r.frameUrl || '' });
           });
         }
-        return Object.assign({}, defaultData, parsed, { logoUrl: logoUrl || parsed.logoUrl, exclusiveFrameUrl: exclUrl || parsed.exclusiveFrameUrl });
+        return Object.assign({}, defaultData, parsed, {
+          logoUrl: logoUrl || parsed.logoUrl,
+          exclusiveFrameUrl: exclUrl || parsed.exclusiveFrameUrl
+        });
       }
     } catch(e2) {}
     return Object.assign({}, defaultData);
@@ -481,14 +500,11 @@ async function fetchData() {
 // ══════════════════════════════════════════
 async function renderAll() {
   const d = await fetchData();
-
   document.getElementById('loadingBar').style.display = 'none';
 
-  // Event name & subtitle
   document.getElementById('eventNameText').textContent = d.eventName || 'Recharge Arena';
   document.getElementById('eventSubtitleDisplay').textContent = d.eventSubtitle || '';
 
-  // Date badge
   const fmt = dt => dt.toLocaleDateString('en-IN', { day:'numeric', month:'short', year:'numeric' })
     + ' ' + dt.toLocaleTimeString('en-IN', { hour:'2-digit', minute:'2-digit' });
   const el = document.getElementById('eventDateDisplay');
@@ -498,7 +514,6 @@ async function renderAll() {
     el.innerHTML = '<span>' + fmt(start) + '</span><span class="badge-arrow"> → </span><span>' + fmt(end) + '</span>';
   }
 
-  // Logo
   const logoEl = document.getElementById('logoDisplay');
   if (d.logoUrl) {
     logoEl.innerHTML = '<img src="' + d.logoUrl + '" alt="Logo">';
@@ -506,14 +521,11 @@ async function renderAll() {
     logoEl.textContent = d.logoEmoji || '🏆';
   }
 
-  // Sections
   renderLeaderboard(d.leaderboard || []);
   renderRules(d.rules || '');
   renderRankingRewards(d.rankingRewards || []);
   renderVipRewards(d.vipRewards || []);
   renderExclusive(d);
-
-  // Countdown
   startCountdown(d.eventEndDate);
 }
 
@@ -545,42 +557,41 @@ function renderLeaderboard(data) {
 }
 
 // ══════════════════════════════════════════
-// RULES
+// ✅ FIXED: RULES — Admin panel RTE ka HTML seedha inject karo
+// Koi extra parsing nahi, koi ace-line detection nahi
+// HTML waise ka waisa render hoga jaise admin ne likha
 // ══════════════════════════════════════════
 function renderRules(rules) {
   const body = document.getElementById('rulesBody');
-  if (typeof rules === 'string' && rules.trim()) {
-    // Lark/rich HTML se plain text extract karo
-    const tmp = document.createElement('div');
-    tmp.innerHTML = rules;
-    // Agar sirf ace-line divs hain (Lark format), plain text banao
-    const aceLines = tmp.querySelectorAll('.ace-line');
-    if (aceLines.length > 0) {
-      let html = '<div class="rte-content">';
-      aceLines.forEach(line => {
-        const text = line.textContent.trim();
-        if (!text) { html += '<br>'; return; }
-        if (text.startsWith('🎯') || text === 'Point Conversion') {
-          html += '<h3>' + escHtml(text) + '</h3>';
-        } else {
-          html += '<p>' + escHtml(text) + '</p>';
-        }
-      });
-      html += '</div>';
-      body.innerHTML = html;
-    } else {
-      body.innerHTML = '<div class="rte-content">' + rules + '</div>';
-    }
-  } else if (Array.isArray(rules) && rules.length) {
-    body.innerHTML = rules.map((r, i) =>
-      '<div style="display:flex;gap:12px;margin-bottom:16px;">'
-      + '<span style="flex-shrink:0;width:26px;height:26px;border-radius:8px;background:linear-gradient(135deg,var(--gold),var(--gold-light));display:flex;align-items:center;justify-content:center;font-size:11px;font-weight:700;color:#fff;font-family:Space Mono,monospace;">' + (i+1) + '</span>'
-      + '<p style="font-size:14px;line-height:1.6;color:var(--mid);">' + r + '</p>'
-      + '</div>'
-    ).join('');
-  } else {
+
+  // Agar rules empty hain
+  if (!rules || (typeof rules === 'string' && !rules.trim())) {
     body.innerHTML = '<p style="color:var(--soft);font-size:14px;padding:8px 0;">No rules added yet.</p>';
+    return;
   }
+
+  // ✅ MAIN FIX: String HTML ko seedha wrap karke inject karo
+  // Admin panel ka RTE contenteditable se h3, b, ol, ul, li, p sab properly save hota hai
+  // Bas .rte-content class ke andar daalo — CSS baaki kaam karega
+  if (typeof rules === 'string') {
+    body.innerHTML = '<div class="rte-content">' + rules + '</div>';
+    return;
+  }
+
+  // Fallback: agar purana array format ho
+  if (Array.isArray(rules) && rules.length) {
+    body.innerHTML = '<div class="rte-content">'
+      + rules.map((r, i) =>
+          '<div style="display:flex;gap:12px;margin-bottom:16px;">'
+          + '<span style="flex-shrink:0;width:26px;height:26px;border-radius:8px;background:linear-gradient(135deg,var(--gold),var(--gold-light));display:flex;align-items:center;justify-content:center;font-size:11px;font-weight:700;color:#fff;font-family:Space Mono,monospace;">' + (i+1) + '</span>'
+          + '<p style="font-size:14px;line-height:1.6;color:var(--mid);">' + r + '</p>'
+          + '</div>'
+        ).join('')
+      + '</div>';
+    return;
+  }
+
+  body.innerHTML = '<p style="color:var(--soft);font-size:14px;padding:8px 0;">No rules added yet.</p>';
 }
 
 // ══════════════════════════════════════════
@@ -594,7 +605,7 @@ function renderRankingRewards(data) {
 }
 
 // ══════════════════════════════════════════
-// VIP REWARDS — No circle, bigger frame
+// VIP REWARDS
 // ══════════════════════════════════════════
 function renderVipRewards(data) {
   document.getElementById('vipRewardBody').innerHTML = data.map(r => {
@@ -645,12 +656,8 @@ function startCountdown(endDateStr) {
   cdInterval = setInterval(tick, 1000);
 }
 
-// ══════════════════════════════════════════
-// AUTO REFRESH — Har 30 second pe fresh data
-// ══════════════════════════════════════════
-setInterval(() => {
-  renderAll();
-}, 30000);
+// Auto refresh har 30 seconds
+setInterval(renderAll, 30000);
 
 // ══════════════════════════════════════════
 // MODAL CONTROLS
